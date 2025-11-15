@@ -1,0 +1,22 @@
+{
+  "title": "Articles",
+  "slug": "articles",
+  "blocks": [
+    {
+      "size": "md",
+      "spacing": "",
+      "alignment": "left",
+      "iconName": "article",
+      "subtitle": "Overview of all publications",
+      "class": "",
+      "title": "All Articles",
+      "type": "sectionTitle",
+      "iconClass": ""
+    },
+    {
+      "type": "articlePreview",
+      "count": 100,
+      "class": "bg-stone-200"
+    }
+  ]
+}

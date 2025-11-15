@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllArticles, getArticleBySlug } from '../../utils/getAllArticles';
+import { UIComponents } from '../../components/ui';
+import site from "../../config/site.json";
+import articlesConfig from "../../config/articles.json";
+
+export async function getStaticPaths() {
+  const articles = await getAllArticles();
+  return articles.map(article => ({ params: { slug: article.slug } }));
+}
+
+const article = await getArticleBySlug(Astro.params.slug);
+if (!article) throw new Error(`Article with a slug "${Astro.params.slug}" not found.`);
+
+const author = article.author || articlesConfig.defaultAuthor;
+const { Content, title, date,  excerpt, coverImage } = article;
+const parsedDate = new Date(date);
+const formattedDate = parsedDate.toLocaleDateString(site.locale, { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<BaseLayout title={title}>
+  <div class={`${articlesConfig.maxWidth} mx-auto py-24 space-y-6 px-4 prose prose-stone`}>
+    <UIComponents.Breadcrumb path={Astro.url.pathname} />
+
+    <UIComponents.Heading level={1}>{title}</UIComponents.Heading>
+
+    <UIComponents.Text class="text-sm" variant="small-light">
+      {formattedDate} • {author}
+    </UIComponents.Text>
+
+    {coverImage && (
+      <img src={coverImage} alt={title} class="rounded-md" />
+    )}
+
+
+
+    {excerpt && <UIComponents.Text>{excerpt}</UIComponents.Text>}
+    <Content components={UIComponents} />
+  </div>
+</BaseLayout>
+

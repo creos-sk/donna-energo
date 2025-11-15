@@ -1,0 +1,61 @@
+---
+title: "Modern JavaScript Bundlers Compared: Turbopack, SWC, Webpack"
+date: 2025-09-22
+coverImage: "https://picsum.photos/1200/600?random=8"
+excerpt: >
+  Benchmarks, speed, and features for modern JS projects.
+published: true
+---
+The landscape of JavaScript bundlers is evolving rapidly, driven primarily by the shift towards high-performance languages like Rust. Choosing the right tool is critical for maintaining fast build times and developer satisfaction in modern SSG projects.
+
+## Introduction: The Speed Wars of 2025
+
+We compare the veterans (Webpack) against the new, Rust-based contenders (Turbopack, SWC). While Webpack remains stable, the newcomers offer exponential speed gains that are hard to ignore in large codebases.
+
+### Key Points of Comparison:
+
+1.  **Turbopack:** Full-stack bundling solution built by Vercel; known for near-instant Hot Module Replacement (HMR).
+2.  **SWC (Speedy Web Compiler):** A Rust-based compiler and bundler offering significantly faster transpilation than Babel.
+3.  **Webpack:** The mature ecosystem; highly configurable but often suffers from moderate build speeds compared to Rust tools.
+
+> "A slow build process drains team morale. Speed is not a feature; it is an economic necessity." – The Developer Handbook
+
+## 1. Feature Breakdown: Transpilation & Caching
+
+The main performance difference lies in how caching and compilation are handled. Rust tools are inherently faster at these tasks.
+
+### Benchmark Data (Hypothetical Large Project):
+
+| Feature | Turbopack | SWC (Bundler Mode) | Webpack 5 |
+| :--- | :--- | :--- | :--- |
+| **Language Base** | Rust | Rust | JavaScript |
+| **Initial Cold Build** | **Fastest** (e.g., 2s) | Very Fast (e.g., 5s) | Moderate (e.g., 15s) |
+| **HMR Speed** | **Instant** `(<10ms)` | Fast (50ms) | Good (200ms) |
+| **Ecosystem Maturity** | Low | Medium | **High** |
+
+## 2. Configuration Differences
+
+While speed is key, configuration complexity matters. Webpack requires extensive configuration files (`webpack.config.js`), whereas SWC and Turbopack rely on simpler JSON or minimal setup.
+
+### Example: Basic Turbopack Config
+
+Configuration for Turbopack often resides within the main application configuration, making it less intrusive:
+
+```json
+// next.config.js snippet showing Turbopack enablement
+const nextConfig = {
+  experimental: {
+    appDir: true,
+    turbo: {
+      rules: {
+        '*.svg': ['@svgr/webpack'],
+      },
+    },
+  },
+};
+module.exports = nextConfig;
+```
+
+## Conclusion: The Future is Rust
+
+For developers using modern frameworks and SSGs like Astro, transitioning to a Rust-powered bundler is the clear path forward. While Webpack retains its utility in legacy systems, the speed and efficiency offered by Turbopack and SWC make them essential components of the modern front-end stack.

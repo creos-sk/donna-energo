@@ -1,0 +1,125 @@
+{
+  "button": {
+    "base": "rounded font-medium transition-colors duration-200 mx-2",
+    "variants": {
+      "primary": "bg-amber-500 text-white hover:bg-amber-600",
+      "secondary": "bg-secondary text-white hover:bg-primary",
+      "ghost": "bg-transparent text-primary border border-primary hover:bg-amber-500 hover:text-amber-100"
+    },
+    "sizes": {
+      "sm": "px-3 py-1 text-sm",
+      "md": "px-4 py-2 text-base",
+      "lg": "px-6 py-3 text-lg"
+    }
+  },
+  "link": {
+    "base": "transition-colors duration-200",
+    "variants": {
+      "primary": "text-primary hover:text-amber-600",
+      "secondary": "text-secondary hover:text-primary",
+      "muted": "text-gray-600 hover:text-gray-900"
+    }
+  },
+  "card": {
+    "base": "p-4 rounded shadow transition-shadow duration-200",
+    "variants": {
+      "default": "bg-white",
+      "highlighted": "bg-primary text-white",
+      "bordered": "bg-white border border-gray-300"
+    }
+  },
+  "heading": {
+    "base": "text-gray-900 flex items-center",
+    "variants": {
+      "h1": "text-4xl",
+      "h2": "text-3xl",
+      "h3": "text-2xl",
+      "h4": "text-xl",
+      "h5": "text-lg",
+      "h6": "text-base"
+    }
+  },
+  "badge": {
+    "base": "px-2 py-1 rounded-full font-semibold",
+    "variants": {
+      "primary": "bg-primary text-white",
+      "secondary": "bg-secondary text-white",
+      "accent": "bg-accent text-white"
+    }
+  },
+  "image": {
+    "base": "object-cover",
+    "variants": {
+      "rounded": "rounded-lg",
+      "circle": "rounded-full",
+      "shadow": "shadow-lg"
+    }
+  },
+  "galleryItem": {
+    "base": "overflow-hidden rounded shadow transition-transform duration-200 hover:scale-105",
+    "variants": {
+      "default": "",
+      "highlighted": "border-4 border-primary"
+    }
+  },
+  "text": {
+    "base": "text-gray-800",
+    "variants": {
+      "normal": "text-base",
+      "small": "text-sm",
+      "small-light": "text-sm opacity-70 pt-1",
+      "small-light-center": "text-sm opacity-70 pt-1 text-center",
+      "small-light-mt": "text-sm mt-2",
+      "large": "text-lg"
+    }
+  },
+  "section": {
+    "base": "w-full",
+    "variants": {
+      "default": {
+        "maxWidth": "max-w-7xl",
+        "gridCols": "grid-cols-1 md:grid-cols-3",
+        "spacing": "py-16",
+        "alignment": "center"
+      },
+      "full": {
+        "maxWidth": "max-w-full",
+        "gridCols": "grid-cols-1 md:grid-cols-4",
+        "spacing": "py-20",
+        "alignment": "center"
+      },
+      "left": {
+        "maxWidth": "max-w-7xl",
+        "gridCols": "grid-cols-1 md:grid-cols-2",
+        "spacing": "py-16",
+        "alignment": "left"
+      },
+      "right": {
+        "maxWidth": "max-w-7xl",
+        "gridCols": "grid-cols-1 md:grid-cols-2",
+        "spacing": "py-16",
+        "alignment": "right"
+      }
+    }
+  },
+  "sectionTitle": {
+    "default": {
+      "maxWidth": "max-w-3xl",
+      "gridCols": "grid-cols-1",
+      "icon": {
+        "size": "w-8 h-8",
+        "color": "text-amber-500" 
+      }
+    },
+    "centered": {
+      "maxWidth": "max-w-4xl",
+      "gridCols": "grid-cols-2 md:grid-cols-3",
+      "icon": {
+        "size": "w-10 h-10",
+        "color": "text-primary"
+      }
+    }
+  }
+}
+  
+

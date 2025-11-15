@@ -1,0 +1,38 @@
+{
+  "layout": {
+    "defaultMaxWidth": "max-w-6xl"
+  },
+  "logo": {
+    "name": "logo",
+    "text": "COMPANY.name"
+  },
+  "contentWidth": "max-w-3xl mx-auto px-4",
+  "homepage": {
+    "hero": {
+      "title": "Simple Static Websites. Built to Load Instantly.",
+      "subtitle": "Astro + Decap CMS Starter",
+      "ctaText": "Start Building",
+      "ctaLink": "/"
+    },
+    "latestArticlesCount": 3,
+    "latestGalleryCount": 4
+  },
+  "siteName": "Site name",
+  "gallery": {
+    "itemsPerPage": 64
+  },
+  "locale": "en-EN",
+  "description": "Welcome to [Site name]. We provide high-quality [Service/Product type] and dedicated support to help you achieve your goals. Explore our collection and learn more about our mission and values.",
+  "articles": {
+    "defaultReadMoreText": "Read more",
+    "defaultAuthor": "Pavol Petras, CREOS",
+    "itemsPerPage": 64,
+    "sortBy": "date",
+    "showCoverImages": true
+  },
+  "design": {
+    "buttons": {
+      "primary": ""
+    }
+  }
+}

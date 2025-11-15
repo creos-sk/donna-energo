@@ -1,0 +1,85 @@
+---
+import { UIComponents } from "../ui";
+import { useDesign } from "../../utils/useDesign";
+
+const { GalleryItem } = UIComponents;
+
+const {
+  items = [],
+  limit = 12,
+  title,
+  subtitle,
+  enableLightbox = true,
+  // switches
+  showTitle = true,
+  showSubtitle = true,
+  bgClass,
+  // CMS field design with fallback via useDesign / default_design
+  wrapperClass = bgClass || useDesign("galleryPreview.wrapper", ""),
+
+  titleClass = useDesign("galleryPreview.title"),
+  subtitleClass = useDesign("galleryPreview.subtitle"),
+
+  itemClass = useDesign("galleryPreview.item"),
+  imageClass = useDesign("galleryPreview.image"),
+  imageTitleClass = useDesign("galleryPreview.titleClass"),
+} = Astro.props;
+
+const list = limit > 0 ? items.slice(0, limit) : items;
+const maxWidthClass = useDesign("layout.defaultMaxWidth", "max-w-6xl");
+---
+{enableLightbox && (
+  <>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+  </>
+)}
+
+<div class={`${wrapperClass}`}>
+  {showTitle && title && <h2 class={titleClass}>{title}</h2>}
+  {showSubtitle && subtitle && <p class={subtitleClass}>{subtitle}</p>}
+
+  <!-- Masonry Grid -->
+  <section class={`columns-2 sm:columns-3 md:columns-4 gap-6 ${maxWidthClass} mx-auto`}>
+    {list.map((item) =>
+      enableLightbox ? (
+        <a
+          href={item.src}
+          class={`glightbox ${itemClass} block`}
+          data-title={item.title || ""}
+          data-description={item.description || item.alt || ""}
+          data-gallery="gallery"
+        >
+          <GalleryItem
+            src={item.src}
+            alt={item.alt}
+            title={item.title}
+            class={imageClass}
+            titleClass={imageTitleClass}
+          />
+        </a>
+      ) : (
+        <GalleryItem
+          src={item.src}
+          alt={item.alt}
+          title={item.title}
+          class={itemClass}
+          titleClass={imageTitleClass}
+        />
+      )
+    )}
+  </section>
+</div>
+
+{enableLightbox && (
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+      const lightbox = GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true,
+        zoomable: true
+      });
+    });
+  </script>
+)}

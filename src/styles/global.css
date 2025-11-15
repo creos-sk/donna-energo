@@ -1,0 +1,77 @@
+/* src/styles/global.css */
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
+/* Tailwind CSS 4+ */
+@import "tailwindcss";
+
+/* Fonts and .prose */
+@theme {
+
+  --font-sans: "Inter", sans-serif;
+  --font-serif: "Merriweather", serif;
+
+  --prose-body-stone: theme(colors.stone.700);
+  --prose-headings-stone: theme(colors.gray.900);
+  --prose-links-stone: theme(colors.blue.600);
+  --prose-bold-stone: theme(colors.gray.800);
+}
+
+/* markdown marked blkquote repair*/
+blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic text-gray-600 mt-4;
+}
+
+/* same for hrule */
+hr {
+  @apply border-t-2 border-gray-300 my-6;
+}
+
+/* prose tryings @theme */
+.prose-stone {
+  --tw-prose-body: var(--prose-body-stone);
+  --tw-prose-headings: var(--prose-headings-stone);
+  --tw-prose-links: var(--prose-links-stone);
+  --tw-prose-bold: var(--prose-bold-stone);
+}
+
+/* typo prose repairs out of theme */
+.prose h1 { @apply text-5xl font-bold text-gray-800 mt-6 mb-6; }
+.prose h2 { @apply text-3xl font-bold text-gray-800 mt-6 mb-6; }
+.prose h3 { @apply text-2xl font-semibold text-gray-700 mt-6 mb-4; }
+.prose p { @apply text-base text-gray-700 leading-relaxed font-serif;}
+.prose ul li { @apply text-sm text-gray-600; }
+
+/* marked table repair*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  text-align: left;
+}
+th {
+  background-color: #f4f4f4;
+}
+td {
+  background-color: white; /* default white */
+}
+tr:nth-child(even) td {
+  background-color: #fafafa; /* evening */
+}
+pre {
+  padding: 0.5rem 1rem;
+}
+
+/* Some effects */
+.zoom { display: inline-block; transition: transform 0.15s ease-in-out; }
+.zoom:hover { transform: scale(1.1); }
+
+@keyframes glow { 0%, 100% { text-shadow: 0 0 5px rgb(255, 0, 204), 0 0 10px rgb(166, 0, 255); } 50% { text-shadow: 0 0 20px rgb(255, 0, 170), 0 0 40px rgb(162, 0, 255); }}
+.glow { animation: glow 2s infinite alternate;}
+
+@keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; }}
+.twinkle { display: inline-block; animation: twinkle 1.5s infinite ease-in-out;}

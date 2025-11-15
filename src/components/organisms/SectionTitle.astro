@@ -1,0 +1,79 @@
+---
+import Heading from "../atoms/Heading.astro";
+import Text from "../atoms/Text.astro";
+import Card from "../molecules/Card.astro";
+import UnknownBlock from "../atoms/UnknownBlock.astro";
+import Icon from "../atoms/Icon.astro";
+import { useDesign } from "../../utils/useDesign";
+
+const {
+  id,
+  title,
+  subtitle,
+  iconName,
+  alignment = "center",
+  spacing,
+  bgColor,
+  blocks = [],
+  variant = "default",
+  class: wrapperClass,
+  titleColor,
+  subtitleColor,
+  borderBottom, 
+} = Astro.props;
+
+// --------------------
+// Fallbacks from default_design
+// --------------------
+const spacingClass = spacing || useDesign("sectionTitle.spacing", "pt-8 px-4 md:px-0");
+const bgClass = bgColor || useDesign("sectionTitle.bgColor", "bg-white");
+const borderClass = borderBottom || useDesign("sectionTitle.borderBottom", "border-b border-stone-200");
+const maxWidthClass = useDesign("layout.defaultMaxWidth", "max-w-4xl");
+const alignmentClass = useDesign(
+  `sectionTitle.alignment.${alignment}`,
+  useDesign("sectionTitle.alignment.center", "items-center text-center")
+);
+const defaultTitleClass = useDesign(
+  "sectionTitle.typography.title",
+  "text-md md:text-xl tracking-tight font-semibold text-stone-600"
+);
+const defaultSubtitleClass = useDesign(
+  "sectionTitle.typography.subtitle",
+  "text-xs md:text-xs text-stone-600/80"
+);
+const finalTitleClass = `${defaultTitleClass} ${titleColor || ""}`.trim();
+const finalSubtitleClass = `${defaultSubtitleClass} ${subtitleColor || ""}`.trim();
+const iconClass = Astro.props.iconClass || useDesign("sectionTitle.icon.class", "h-6 w-6 text-stone-400");
+
+const innerComponents = { card: Card };
+function getInnerComponent(block) {
+  const name = (block.name || block.type || "").toLowerCase();
+  return innerComponents[name] || UnknownBlock;
+}
+
+const gridCols = useDesign("sectionTitle.gridCols", "grid-cols-1 md:grid-cols-3 gap-4");
+
+// Final wrapper class
+const finalWrapperClass = `w-full ${spacingClass} ${bgClass}  ${wrapperClass || ""}`.trim();
+---
+<div id={id || undefined} class={finalWrapperClass}>
+  <div class={`${maxWidthClass} mx-auto flex flex-col ${alignmentClass} ${borderClass} pb-4`}>
+    {title && (
+      <div class="flex items-center gap-2 mb-1">
+        {iconName && <Icon name={iconName} class={iconClass} />}
+        <Heading level="3" class={finalTitleClass}>{title}</Heading>
+      </div>
+    )}
+
+    {subtitle && <Text class={finalSubtitleClass}>{subtitle}</Text>}
+
+    {blocks && blocks.length > 0 && (
+      <div class={`grid gap-4 ${gridCols}`}>
+        {blocks.map((block) => {
+          const Component = getInnerComponent(block);
+          return <Component {...block} />;
+        })}
+      </div>
+    )}
+  </div>
+</div>

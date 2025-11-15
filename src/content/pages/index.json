@@ -1,0 +1,312 @@
+{
+  "title": "Homepage",
+  "slug": "index",
+  "blocks": [
+    {
+      "left": {
+        "buttons": [
+          {
+            "label": "Start Building",
+            "href": "#",
+            "variant": "amber"
+          },
+          {
+            "label": "View Features",
+            "href": "#",
+            "variant": "emerald"
+          }
+        ],
+        "text": "This template provides a clean, performance-focused foundation using Astro and Tailwind. Manage content via Decap CMS and publish directly from Git.",
+        "textClass": "text-xl text-white/80 font-semibold",
+        "headings": [
+          {
+            "level": 2,
+            "text": "Astro + Decap CMS Starter",
+            "class": "text-3xl font-bold text-white"
+          }
+        ]
+      },
+      "mainHeadingDesign": {
+        "mainHeadingColor": "text-white uppercase p-6 bg-black/20 rounded-md border border-white/10 shadow-xl shadow-purple-500/10 glow",
+        "mainHeadingSize": "text-5xl",
+        "mainHeadingWeight": "font-extrabold",
+        "mainHeadingAlign": "text-center"
+      },
+      "overlayColor": "bg-gradient-to-t from-orange-800/40 via-rose-700/30 to-transparent",
+      "bgImage": "/images/bg-hero-default-01.svg",
+      "mainHeadingText": "Simple Static Websites. Load Instantly. ",
+      "containerClass": "",
+      "type": "hero",
+      "right": {
+        "blocks": [
+          {
+            "text": "This commanding component gives you full control over your page's first impression. Customize the background with images, color overlays, or seamless gradients. Then, deliver your message with impact by easily adding powerful headlines, text blocks, and strategic call-to-action buttons to guide your visitors.",
+            "title": "This is the Hero block component.",
+            "buttons": [],
+            "bgColor": "",
+            "textColor": ""
+          }
+        ]
+      },
+      "design": {
+        "wrapper": "",
+        "container": "",
+        "gap": "",
+        "py": "",
+        "px": ""
+      },
+      "bgColor": null
+    },
+    {
+      "type": "sectionTitle",
+      "alignment": "left",
+      "borderBottom": "border-b-2 border-stone-300",
+      "title": "Last Articles",
+      "subtitle": "Read our latest articles focusing on the latest technologies.",
+      "class": "",
+      "bgColor": "",
+      "id": "Articles"
+    },
+    {
+      "type": "articlePreview",
+      "count": 6,
+      "markdown": "",
+      "bgColor": ""
+    },
+    {
+      "type": "buttonBlock",
+      "button": {
+        "variant": "emerald",
+        "disabled": false,
+        "text": "Read All Articles",
+        "href": "/articles"
+      },
+      "bgColor": "bg-gray-200",
+      "paddingY": "pb-24"
+    },
+    {
+      "bounceArrowEnabled": true,
+      "size": "md",
+      "bounceArrowColor": "text-gray-500",
+      "bounceArrowSize": 12,
+      "bg": "",
+      "scale": 10,
+      "logo": "logohero-logo",
+      "subtitleColor": "",
+      "titleColor": "",
+      "bounceArrowHref": "#Articles",
+      "button": {
+        "label": "Hello, Human!",
+        "href": "#Articles",
+        "variant": "amber"
+      },
+      "subtitle": "Present your logo",
+      "title": "",
+      "bounceArrowIcon": "arrow-circle-down",
+      "subtitle2": "and key ideas",
+      "type": "logoHero",
+      "bounceArrowIconSize": 12
+    },
+    {
+      "reverse": true,
+      "wrapperClass": "",
+      "imageSrc": "/images/bg-hero-default-01.svg",
+      "textClass": "",
+      "markdown": "## Text + Image Section\n\n### Highlight Your Main Feature Here\n\nThis component is designed to showcase a core feature, service, or concept using a compelling image on one side and descriptive text on the other. It is an ideal layout for explaining your value proposition clearly and succinctly.\n\n> The image should visually represent the content of this text block. You can easily switch the layout to place the image on the left or the right side, adjusting the flow to best suit your narrative.\n\n- - -\n\n### Key Takeaway Points:\n\n* **Clarity:** Use this space to drive home a single, strong message.\n* **Visual Impact:** Ensure your image is high-quality and directly relevant.\n* **Flexibility:** Easily adjust the content layout in the CMS.",
+      "containerClass": "",
+      "type": "textImageSection",
+      "imageClass": "",
+      "bgColor": ""
+    },
+    {
+      "size": "8",
+      "alignment": "center",
+      "iconName": "",
+      "subtitleColor": "text-sky-200",
+      "titleColor": "text-white",
+      "borderBottom": "border-b border-gray-400",
+      "subtitle": "Use it to introduce the next block, setting the main title, subtitle, and a unique ID for internal linking.",
+      "title": "Section Title Component",
+      "type": "sectionTitle",
+      "id": "section",
+      "bgColor": "bg-gray-800"
+    },
+    {
+      "type": "section",
+      "layout": "3",
+      "background": "bg-gradient-to-b from-slate-800 via-gray-800 to-slate-900 text-white",
+      "contentWidth": "",
+      "blocks": [
+        {
+          "textCenter": true,
+          "textClass": "text-sky-200",
+          "text": "Lay the foundation of your big idea. Our streamlined tools give you the powerful initial spark you need to start strong.",
+          "button": {
+            "label": "Ignite the Thrust",
+            "href": "",
+            "variant": "lime"
+          },
+          "headingClass": "text-white",
+          "title": "IGNITE THE THRUST",
+          "type": "card",
+          "image": "/images/section-first.svg",
+          "description": "Vykurovacie tepelné čerpadlo je zariadenie, ktoré využíva netradičné zdroje energie na ústredné vykurovanie a na ohrev teplej úžitkovej vody. Pracuje na princípe využitia inak nevyužiteľnej energie – nízkopotenciálového tepla z nášho okolia "
+        },
+        {
+          "type": "card",
+          "title": "LIFT OFF & LAUNCH",
+          "text": "Go from idea to live site in minutes. We handle the complexity so your project can quickly and confidently break through the atmosphere.",
+          "image": "/images/section-second.svg",
+          "textCenter": true,
+          "headingClass": "text-white",
+          "textClass": "text-sky-200",
+          "button": {
+            "label": "Lift Off & Launch",
+            "variant": "amber"
+          }
+        },
+        {
+          "type": "card",
+          "title": "ACHIEVE ORBIT ",
+          "text": "Your work doesn't stop at launch, and neither do we. Scale your business, analyze results, and dominate your market with constant support.",
+          "image": "/images/section-third.svg",
+          "textCenter": true,
+          "headingClass": "text-white",
+          "textClass": "text-sky-200",
+          "button": {
+            "label": "Achieve Orbit",
+            "variant": "emerald"
+          }
+        }
+      ],
+      "class": ""
+    },
+    {
+      "type": "markdownSection",
+      "center": false,
+      "markdown": "## 🚀 Intergalactic Starter Specs Showcase\n\nThis block demonstrates the styling power of the Tailwind + Astro + Markdown integration. You can embed any content here, from **detailed tables** to **block quotes** and **structured lists**.\n\n### 🍽️ Capsule Menu for Week 1: Mission Nutrition\n\nHere is a sample table to demonstrate advanced styling features. The table is fully responsive and readable across various viewports.\n\n| Day           | Breakfast (Freeze-Dried) | Lunch (Reconstituted)      | G-Force Resistance |\n| ------------- | ------------------------ | -------------------------- | ------------------ |\n| **Monday**    | Milky Way Coffee Blend   | Reconstituted Chicken Kiev | High               |\n| **Tuesday**   | High-Protein Space Bar   | Black Hole Goulash         | Extreme            |\n| **Wednesday** | Prepared Cosmic Quinoa   | Asteroid Garden Salad      | Moderate           |\n| **Thursday**  | Liquid Chocolate Surge   | Synthetic Pepperoni Pizza  | High               |\n| **Friday**    | Space Berry Purée        | Lunar Soya Burrito         | Moderate           |\n\n- - -\n\n### ✨ Advanced Component Typography\n\n> *“The cosmos is not a limit; it's just the starting point for design.”* - K. Musk, 2045\n\n#### ⚙️ Supported Formatting:\n\n* **Emphasis:** Supports *italics*, **bold text**, and ***combined emphasis***.\n* **Lists:** Includes support for *Ordered* (1., 2.) and *Unordered* (bulleted) lists.\n* **Code:** Ability to render `inline code` and **code blocks** (if supported by your renderer).\n* **Links:** Check out the official [Astro Documentation](https://docs.astro.build/)",
+      "containerClass": "",
+      "wrapperClass": ""
+    },
+    {
+      "arrowLink": "#section",
+      "titleGradient": "bg-gradient-to-r from-gray-100 to-gray-300",
+      "subtitleColor": "",
+      "titleColor": "",
+      "showArrow": true,
+      "backgroundImage": "/images/bg-hero-default-01.svg",
+      "button": {
+        "label": "Let's get down to business",
+        "variant": "emerald"
+      },
+      "backgroundColor": null,
+      "subtitle": "Hey there! I'm Little Hero, and I'm your sidekick on your journey for adventure. I'd love to help you place your most essential ideas right in front of the eyes of your followers. Let's get started today!",
+      "title": "Little Hero",
+      "titleSize": "",
+      "arrowColor": "",
+      "type": "littleHero"
+    },
+    {
+      "type": "galleryPreview",
+      "title": "Gallery Component",
+      "subtitle": "This is a sample of a simple component for a masonry-type image gallery.",
+      "showTitle": true,
+      "showSubtitle": true,
+      "enableLightbox": true,
+      "limit": 16,
+      "items": [
+        {
+          "src": "/images/gallery_1.jpg",
+          "width": 400,
+          "height": 300
+        },
+        {
+          "src": "/images/gallery_2.jpg",
+          "width": 300,
+          "height": 400
+        },
+        {
+          "src": "/images/gallery_3.jpg",
+          "width": 350,
+          "height": 350
+        },
+        {
+          "src": "/images/gallery_4.jpg",
+          "width": 450,
+          "height": 300
+        },
+        {
+          "src": "/images/gallery_5.jpg",
+          "width": 300,
+          "height": 450
+        },
+        {
+          "src": "/images/gallery_6.jpg",
+          "width": 400,
+          "height": 400
+        },
+        {
+          "src": "/images/gallery_7.jpg",
+          "width": 500,
+          "height": 300
+        },
+        {
+          "src": "/images/gallery_8.jpg",
+          "width": 300,
+          "height": 500
+        },
+        {
+          "src": "/images/gallery_9.jpg",
+          "width": 350,
+          "height": 400
+        },
+        {
+          "src": "/images/gallery_10.jpg",
+          "width": 400,
+          "height": 350
+        },
+        {
+          "src": "/images/gallery_11.jpg",
+          "width": 450,
+          "height": 450
+        },
+        {
+          "src": "/images/gallery_12.jpg",
+          "width": 500,
+          "height": 400
+        },
+        {
+          "src": "/images/gallery_13.jpg",
+          "width": 400,
+          "height": 500
+        },
+        {
+          "src": "/images/gallery_14.jpg",
+          "width": 350,
+          "height": 300
+        },
+        {
+          "src": "/images/gallery_15.jpg",
+          "width": 300,
+          "height": 350
+        },
+        {
+          "src": "/images/gallery_16.jpg",
+          "width": 400,
+          "height": 450
+        }
+      ]
+    },
+    {
+      "type": "buttonBlock",
+      "button": {
+        "variant": "primary",
+        "disabled": false,
+        "text": "Check out our entire image gallery!",
+        "href": "/gallery"
+      },
+      "bgColor": "bg-gray-200",
+      "paddingY": "pb-16"
+    }
+  ]
+}

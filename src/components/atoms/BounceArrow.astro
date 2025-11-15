@@ -1,0 +1,37 @@
+---
+import { UIComponents } from "../ui";
+import { useDesign } from "../../utils/useDesign";
+import type { BounceArrowProps } from "./types";
+
+const { Icon, Link } = UIComponents;
+
+// Props
+const {
+  href = "#",
+  icon = "arrow-down",
+  iconSize = 6,
+  color = "text-black-500",
+  class: extra = "",
+} = Astro.props as BounceArrowProps;
+
+// Mapping sizes to Tailwind classes (due to JIT compiler)
+const sizeMap: Record<BounceArrowProps['iconSize'], string> = {
+  4: "w-4 h-4",
+  5: "w-5 h-5",
+  6: "w-6 h-6",
+  8: "w-8 h-8",
+  10: "w-10 h-10",
+  12: "w-12 h-12",
+};
+
+// -------------------------
+// Design via useDesign (fallbacks)
+const iconSizeClass = sizeMap[iconSize] || sizeMap[6];
+const iconClass = useDesign(
+  "bounceArrow.icon",
+  `${iconSizeClass} ${color} animate-bounce`
+);
+---
+<Link href={href} class={`inline-flex justify-center items-center ${extra}`}>
+  <Icon name={icon} class={iconClass} />
+</Link>

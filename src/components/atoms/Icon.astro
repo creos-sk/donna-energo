@@ -1,0 +1,55 @@
+---
+import fs from 'fs';
+import path from 'path';
+import { useDesign } from "../../utils/useDesign";
+import type { IconProps } from "./types";
+
+// Props
+const { name, size = 6, class: cls = '', className = '' } = Astro.props as IconProps;
+
+// Class unification - className is deprecated, prefer class
+const mergedClass = className ? `${cls} ${className}`.trim() : cls;
+
+// -------------------------
+// Design via useDesign
+// -------------------------
+const iconBase = useDesign("icon.base", "inline-block");
+
+// Mapping sizes to Tailwind classes (due to JIT compiler)
+const sizeMap: Record<IconProps['size'], string> = {
+  4: "w-4 h-4",
+  5: "w-5 h-5",
+  6: "w-6 h-6",
+  8: "w-8 h-8",
+  10: "w-10 h-10",
+  12: "w-12 h-12",
+  16: "w-16 h-16",
+  20: "w-20 h-20",
+  24: "w-24 h-24",
+};
+
+const tailwindSize = sizeMap[size] || sizeMap[6];
+
+// path to SVG
+const filePath = path.resolve('./public/icons', `${name}.svg`);
+let svgContent = '';
+try {
+  svgContent = fs.readFileSync(filePath, 'utf-8');
+
+// remove fixed width/height and add preserveAspectRatio
+  svgContent = svgContent.replace(/(<svg\b[^>]*?)\swidth="[^"]*"/i, '$1 width="100%"');
+  svgContent = svgContent.replace(/(<svg\b[^>]*?)\sheight="[^"]*"/i, '$1 height="100%"');
+
+  if (!/preserveAspectRatio=/i.test(svgContent)) {
+    svgContent = svgContent.replace(/(<svg\b[^>]*)(>)/i, '$1 preserveAspectRatio="xMidYMid meet"$2');
+  }
+} catch {
+  console.warn(`Icon "${name}" not found at: ${filePath}`);
+}
+---
+{svgContent ? (
+  <svg
+    class={mergedClass ? `${iconBase} ${mergedClass}` : `${iconBase} ${tailwindSize}`}
+    set:html={svgContent}
+  />
+) : null}

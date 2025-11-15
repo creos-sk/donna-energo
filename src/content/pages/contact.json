@@ -1,0 +1,94 @@
+{
+  "title": "Contact",
+  "slug": "contact",
+  "blocks": [
+    {
+      "bounceArrowEnabled": false,
+      "size": "sm",
+      "bounceArrowColor": "text-gray-600/50",
+      "bounceArrowSize": 10,
+      "bg": "bg-gray-600",
+      "scale": 4,
+      "logo": "logohero-logo",
+      "subtitleColor": "text-gray-200/80",
+      "titleColor": "text-gray-200",
+      "bounceArrowHref": "#",
+      "containerClass": "flex flex-col items-center justify-center",
+      "subtitle": "Connect.",
+      "title": "Contact",
+      "bounceArrowIcon": "arrow-down",
+      "subtitle2": "Share the Vision.",
+      "type": "logoHero",
+      "bounceArrowIconSize": 6,
+      "contentClass": "py-4"
+    },
+    {
+      "items": [
+        {
+          "type": "text",
+          "show": true,
+          "text": "Please note: The following contact details are entirely fictional and are used solely for the purpose of demonstrating the layout and functionality of this component."
+        },
+        {
+          "type": "info",
+          "show": true,
+          "label": "Company name",
+          "text": "The Chronically Optimistic Consultancy, LLC"
+        },
+        {
+          "type": "info",
+          "show": true,
+          "icon": "",
+          "label": "Registered Address",
+          "text": "42 Dreamer's Alley, Non-Existent, EX 99999"
+        },
+        {
+          "type": "info",
+          "show": true,
+          "label": "Web",
+          "text": "notarealbusiness.com",
+          "link": "https://notarealbusiness.com"
+        },
+        {
+          "type": "info",
+          "show": true,
+          "label": "Email",
+          "text": "hello@notarealbusiness.com",
+          "link": "mailto:hello@notarealbusiness.com"
+        },
+        {
+          "type": "info",
+          "show": true,
+          "label": "Phone",
+          "text": "+44 800 555 The Answer (0800 555 267937)"
+        },
+        {
+          "type": "info",
+          "show": true,
+          "label": "Office Hours",
+          "text": "Mon - Fri: 10:00 - 16:00 (or When the inspiration hits)"
+        },
+        {
+          "type": "sectionTitle",
+          "show": true,
+          "label": "Data Protection and Privacy",
+          "text": ""
+        },
+        {
+          "type": "text",
+          "show": true,
+          "text": "[En] This website is purely informational. We do not use cookies, tracking technologies, or analytics tools (such as Google Analytics). We do not collect, process, or store any personal data of visitors."
+        }
+      ],
+      "defaultMaxWidth": "max-w-3xl",
+      "bgWrapper": "bg-gray-300",
+      "bgCard": "bg-gray-50",
+      "mapLayer": "mapnik",
+      "location": "{\"type\":\"Point\",\"coordinates\":[-185.2767292,-41.2855733]}",
+      "title": "Legal Information (Impressum)",
+      "type": "contactInfo",
+      "description": "This is a contact info component to display your details with a map option.",
+      "showMap": true
+    }
+  ]
+}

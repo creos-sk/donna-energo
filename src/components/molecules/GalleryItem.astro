@@ -1,0 +1,33 @@
+---
+import { UIComponents } from "../ui";
+import { useDesign } from "../../utils/useDesign";
+
+const { Image, Text } = UIComponents;
+
+// Props
+const {
+  src,
+  alt = "Obrázok galérie",
+  title,
+  variant = "default",
+  class: wrapperClass = "",
+} = Astro.props;
+
+// -------------------------
+// Design via useDesign
+// -------------------------
+const designWrapper = useDesign("galleryItem.wrapper", "w-full py-4 px-4");
+const designInner = useDesign("galleryItem.inner", "gallery-item mx-auto text-center space-y-2");
+const designImage = useDesign("galleryItem.image", "rounded-lg shadow-md mx-auto");
+const designImageVariant = useDesign("galleryItem.imageVariant", "rounded");
+const designTitleVariant = useDesign("galleryItem.titleVariant", "small");
+const designTitleClass = useDesign("galleryItem.titleClass", "text-gray-600");
+---
+<div class={`${designWrapper} ${wrapperClass}`}>
+  <div class={`${designInner} ${variant}`}>
+    <Image src={src} alt={alt} class={designImage} variant={designImageVariant} />
+    {title && (
+      <Text variant={designTitleVariant} class={designTitleClass}>{title}</Text>
+    )}
+  </div>
+</div>

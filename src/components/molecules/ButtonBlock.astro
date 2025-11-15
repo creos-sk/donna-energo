@@ -1,0 +1,40 @@
+---
+import { Button } from "../ui";
+import site from "../../config/site.json";
+import { useDesign } from "../../utils/useDesign";
+
+// Props from CMS
+const {
+  bgColor = "bg-gray-50",
+  paddingY = "py-8",
+  paddingX = "px-4",
+  align = "center", // left / center / right
+  button = {}
+} = Astro.props;
+
+// Container alignment
+const alignClass = align === "left" ? "justify-start" : align === "right" ? "justify-end" : "justify-center";
+
+// Wrapper
+
+const wrapperClass = `${bgColor} ${paddingY} ${paddingX}`;
+
+// Container
+const containerClass = `mx-auto flex ${alignClass} ${site.layout?.defaultMaxWidth || "max-w-6xl"}`.trim();
+
+// Props for Button atom
+const { text = "Click me", href, variant = "primary", disabled = false } = button;
+---
+<div class={wrapperClass}>
+  <div class={containerClass}>
+    {text && (
+      <Button
+        href={href}
+        variant={variant}
+        disabled={disabled}
+      >
+        {text}
+      </Button>
+    )}
+  </div>
+</div>

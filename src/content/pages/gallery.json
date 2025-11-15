@@ -1,0 +1,48 @@
+{
+  "title": "Gallery",
+  "slug": "gallery",
+  "blocks": [
+    {
+      "items": [
+        { "src": "/images/gallery_1.jpg", "width": 400, "height": 300 },
+        { "src": "/images/gallery_2.jpg", "width": 300, "height": 400 },
+        { "src": "/images/gallery_3.jpg", "width": 350, "height": 350 },
+        { "src": "/images/gallery_4.jpg", "width": 450, "height": 300 },
+        { "src": "/images/gallery_5.jpg", "width": 300, "height": 450 },
+        { "src": "/images/gallery_6.jpg", "width": 400, "height": 400 },
+        { "src": "/images/gallery_7.jpg", "width": 500, "height": 300 },
+        { "src": "/images/gallery_8.jpg", "width": 300, "height": 500 },
+        { "src": "/images/gallery_9.jpg", "width": 350, "height": 400 },
+        { "src": "/images/gallery_10.jpg", "width": 400, "height": 350 },
+        { "src": "/images/gallery_11.jpg", "width": 450, "height": 450 },
+        { "src": "/images/gallery_12.jpg", "width": 500, "height": 400 },
+        { "src": "/images/gallery_13.jpg", "width": 400, "height": 500 },
+        { "src": "/images/gallery_14.jpg", "width": 350, "height": 300 },
+        { "src": "/images/gallery_15.jpg", "width": 300, "height": 350 },
+        { "src": "/images/gallery_16.jpg", "width": 400, "height": 450 },
+        { "src": "/images/gallery_17.jpg", "width": 450, "height": 400 },
+        { "src": "/images/gallery_18.jpg", "width": 500, "height": 350 },
+        { "src": "/images/gallery_19.jpg", "width": 350, "height": 500 },
+        { "src": "/images/gallery_20.jpg", "width": 600, "height": 400 },
+        { "src": "/images/gallery_21.jpg", "width": 400, "height": 600 },
+        { "src": "/images/gallery_22.jpg", "width": 550, "height": 400 },
+        { "src": "/images/gallery_23.jpg", "width": 400, "height": 550 },
+        { "src": "/images/gallery_24.jpg", "width": 500, "height": 500 },
+        { "src": "/images/gallery_25.jpg", "width": 450, "height": 350 },
+        { "src": "/images/gallery_26.jpg", "width": 350, "height": 450 },
+        { "src": "/images/gallery_27.jpg", "width": 600, "height": 500 },
+        { "src": "/images/gallery_28.jpg", "width": 500, "height": 600 },
+        { "src": "/images/gallery_29.jpg", "width": 550, "height": 550 },
+        { "src": "/images/gallery_30.jpg", "width": 600, "height": 600 }
+      ],
+      "bgClass": "",
+      "showSubtitle": true,
+      "subtitle": "This is a sample of a simple component for a masonry-type image gallery.",
+      "title": "Gallery Component",
+      "enableLightbox": true,
+      "type": "galleryPreview",
+      "showTitle": true,
+      "limit": 64
+    }
+  ]
+}

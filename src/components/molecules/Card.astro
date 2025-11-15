@@ -1,0 +1,43 @@
+---
+import { UIComponents } from "../ui";
+import { useDesign } from "../../utils/useDesign";
+
+const { Button, Heading, Text } = UIComponents;
+
+// Props with fallback
+const {
+  title = "Predvolený titulok",
+  subtitle = "Predvolený popis",
+  buttonLabel = "Klikni",
+  showFooter = false,
+  class: extra = "",
+  headerClass = "",
+  bodyClass = "",
+  footerClass = "",
+} = Astro.props;
+
+// -------------------------
+// Design via useDesign
+// -------------------------
+const cardBase = useDesign("card.base", "rounded-lg shadow p-4");
+const cardHeader = useDesign("card.header", "mb-4");
+const cardBody = useDesign("card.body", "");
+const cardFooter = useDesign("card.footer", "mt-4 flex justify-end");
+---
+<article class={`${cardBase} ${extra}`}>
+<!--
+  <header class={`${cardHeader} ${headerClass}`}>
+    <Heading level={2}>{title}</Heading>
+    <Text>{subtitle}</Text>
+  </header>
+ -->
+  <div class={`${cardBody} ${bodyClass}`}>
+    <slot />
+  </div>
+
+  {showFooter && (
+    <footer class={`${cardFooter} ${footerClass}`}>
+      <Button variant="primary">{buttonLabel}</Button>
+    </footer>
+  )}
+</article>

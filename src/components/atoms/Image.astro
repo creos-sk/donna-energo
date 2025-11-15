@@ -1,0 +1,39 @@
+---
+import { useDesign } from "../../utils/useDesign";
+import type { ImageProps } from "./types";
+
+// Props
+const { 
+  src, 
+  alt = "", 
+  width,
+  height,
+  loading = "lazy",
+  srcset,
+  sizes,
+  class: extra = "", 
+  ...props 
+} = Astro.props as ImageProps;
+
+// -------------------------
+// Design via useDesign
+// -------------------------
+const imageBase = useDesign("image.base", "block max-w-full h-auto");
+const classes = `${imageBase} ${extra}`.trim();
+
+// External image detection (for security)
+const isExternal = src.startsWith('http://') || src.startsWith('https://');
+---
+<img 
+  src={src} 
+  alt={alt}
+  width={width}
+  height={height}
+  loading={loading}
+  srcset={srcset}
+  sizes={sizes}
+  class={classes}
+  decoding="async"
+  {...(isExternal && { referrerpolicy: "no-referrer" })}
+  {...props} 
+/>

@@ -1,0 +1,39 @@
+---
+// /src/components/organisms/TextImageSection.astro
+import { marked } from "marked";
+import { useDesign } from "../../utils/useDesign";
+
+const {
+  markdown = "",
+  imageAlt = "",
+  reverse = false,           // true = obrázok vpravo
+  wrapperClass,
+  containerClass,
+  textClass,
+  imageClass,
+  bgColor,
+} = Astro.props;
+//const imageSrc = Astro.props.imageSrc || "imageSrc: "https://picsum.photos/seed/energy/1280/960?grayscale&blur=2";
+const imageSrc = Astro.props.imageSrc || "https://picsum.photos/seed/nature/1280/960?grayscale";
+
+// fallback design via default_design / useDesign
+const wrapper = wrapperClass || useDesign("textImageSection.wrapperClass", "bg-stone-100 py-4");
+const bgColorClass = `${bgColor || useDesign("textImageSection.bgColor")}`;
+const maxWidthClass = containerClass || useDesign("layout.defaultMaxWidth", "max-w-4xl mx-auto px-4");
+const textBlockClass = textClass || useDesign("textImageSection.text", "flex-1 prose prose-stone text-sm");
+const imageBlockClass = imageClass || useDesign("textImageSection.imageClass", "flex-1 rounded-lg shadow-md overflow-hidden  shadow-2xl");
+
+// parsing markdown to HTML
+const html = markdown ? marked.parse(markdown) : "";
+---
+<section class={`${wrapper} ${bgColorClass}`}>
+  <div class={`flex flex-col md:flex-row items-stretch gap-8 ${reverse ? "md:flex-row-reverse" : ""} ${maxWidthClass} px-4 md:px-0  mx-auto`}>
+    <!-- Text block -->
+    <div class={textBlockClass} set:html={html} />
+
+    <!-- Image block -->
+    <div class={imageBlockClass}>
+      <img src={imageSrc} alt={imageAlt} class="w-full h-full object-cover" />
+    </div>
+  </div>
+</section>

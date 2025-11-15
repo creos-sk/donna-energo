@@ -1,0 +1,29 @@
+---
+import { useDesign } from "../../utils/useDesign";
+import type { HeadingProps } from "./types";
+
+// Props
+let { level = 2, class: extra = "" } = Astro.props as HeadingProps;
+
+// Level validation
+if (level < 1 || level > 6) {
+  console.warn(`Heading: Invalid level ${level}, using default level 2`);
+  level = 2;
+}
+
+// -------------------------
+// Design via useDesign
+// -------------------------
+const typographyClass = useDesign(`typography.h${level}`, useDesign("typography.h3", ""));
+
+// Final class composition
+// If extra is non-empty, it will be used entirely instead of typographyClass
+const classes = extra?.trim() ? extra.trim() : typographyClass.trim();
+
+// dynamic tag
+const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+---
+
+<Tag class={classes}>
+  <slot />
+</Tag>

@@ -1,0 +1,53 @@
+---
+// /src/components/organisms/MarkdownSection.astro
+import { marked } from "marked";
+import { useDesign } from "../../utils/useDesign";
+
+const {
+  markdown = "",
+  wrapperClass,
+  containerClass,
+  proseClass,
+  center = false,
+} = Astro.props;
+
+// Setting highlight.js for marked (if needed)
+marked.setOptions({
+  highlight(code, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      return hljs.highlight(code, { language: lang }).value;
+    }
+    return hljs.highlightAuto(code).value;
+  },
+});
+
+// Wrapper section
+const wrapper = wrapperClass || useDesign("markdownSection.wrapper", "");
+
+// Container with fallback system
+let container = containerClass?.trim();
+
+if (!container) {
+  const fallbackContainer = useDesign("markdownSection.container", "");
+  const maxWidth = useDesign("layout.defaultMaxWidth", "max-w-4xl");
+
+  container = fallbackContainer
+    ? `${maxWidth} mx-auto ${fallbackContainer}`
+    : `${maxWidth} mx-auto px-4`;
+}
+
+// Prose
+const prose = proseClass || useDesign(
+  "markdownSection.prose",
+  "prose prose-invert prose-headings:text-white prose-p:text-gray-300"
+);
+
+// HTML with Markdown
+const html = markdown ? marked.parse(markdown) : "";
+const alignClass = center ? "text-center" : "";
+---
+<section class={wrapper}>
+  <div class={container}>
+    <article class={`${prose} ${alignClass}`} set:html={html} />
+  </div>
+</section>

@@ -1,0 +1,27 @@
+---
+import { useDesign } from "../../utils/useDesign";
+import type { TextProps } from "./types";
+
+const {
+  variant = "body",
+  class: extra = "",
+  ...props
+} = Astro.props as TextProps;
+
+// Preset variants
+const variantClasses = {
+  body: useDesign("typography.body", "text-base text-slate-700"),
+  lead: useDesign("typography.lead", "text-lg text-slate-700 leading-relaxed"),
+  small: useDesign("typography.small", "text-sm text-slate-600"),
+  caption: useDesign("typography.caption", "text-xs text-slate-500"),
+};
+
+const variantClass = variantClasses[variant] || variantClasses.body;
+
+// If extra is non-empty, it will be used instead of variantClass
+const classes = extra?.trim() ? extra.trim() : variantClass.trim();
+
+---
+<p class={classes} {...props}>
+  <slot />
+</p>

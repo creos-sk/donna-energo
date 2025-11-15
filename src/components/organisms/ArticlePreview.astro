@@ -1,0 +1,43 @@
+---
+import { UIComponents } from "../ui";
+import { useDesign } from "../../utils/useDesign";
+import { getAllArticles } from "../../utils/getAllArticles";
+
+const { ArticleItem } = UIComponents;
+
+// Props from CMS or parent page
+const {
+  articles = null,
+  count = 3,
+  bgColor,
+  title: sectionTitle = "",
+} = Astro.props;
+
+// Fallback article loading
+const allArticles = articles ?? (await getAllArticles());
+const list = allArticles.slice(0, count);
+
+// -------------------------
+// Design via useDesign fallback system
+// -------------------------
+const designWrapper = useDesign(
+  "articlePreview.wrapper",
+  "grid grid-cols-1 md:grid-cols-3"
+);
+const wrapperClass = bgColor || useDesign("articlePreview.bgColor", "");
+
+const designSpacing = useDesign("articlePreview.spacing", "");
+const designItemClass = useDesign("articlePreview.item", "");
+const maxWidthClass = useDesign("layout.defaultMaxWidth", "max-w-3xl");
+---
+<div class={`w-full ${wrapperClass}`}>
+  <section class={`${designWrapper} ${designSpacing} ${maxWidthClass} mx-auto`}>
+    {list.length > 0 ? (
+      list.map((article) => (
+        <ArticleItem {...article} class={designItemClass} />
+      ))
+    ) : (
+      <p class="text-center text-gray-500">No articles to display.</p>
+    )}
+  </section>
+</div>

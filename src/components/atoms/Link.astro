@@ -1,0 +1,33 @@
+---
+import { useDesign } from "../../utils/useDesign";
+import type { LinkProps } from "./types";
+
+// Props
+const { 
+  href = "#", 
+  variant = "primary", 
+  underline = false,
+  external = false,
+  class: extra = "", 
+  ...props 
+} = Astro.props as LinkProps;
+
+// External link detection
+const isExternalLink = external || href.startsWith('http://') || href.startsWith('https://');
+
+// -------------------------
+// Design via useDesign
+// -------------------------
+const base = useDesign("link.base", "inline-block text-blue-600 transition-colors");
+const style = useDesign(`link.variants.${variant}`, useDesign("link.variants.primary", "font-medium hover:text-blue-700"));
+const classes = `${base} ${style} ${underline ? "underline" : "no-underline"} ${extra}`.trim();
+---
+<a 
+  href={href} 
+  class={classes}
+  target={isExternalLink ? "_blank" : undefined}
+  rel={isExternalLink ? "noopener noreferrer" : undefined}
+  {...props}
+>
+  <slot />
+</a>

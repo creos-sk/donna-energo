@@ -1,0 +1,80 @@
+---
+import { UIComponents } from "../ui";
+import { useDesign } from "../../utils/useDesign";
+
+const { Icon, Link, Button } = UIComponents;
+
+const {
+  logo,
+  title,
+  subtitle,
+  subtitle2,
+  titleColor,
+  subtitleColor,
+  bg,
+  classMain,
+  size = "md",
+  scale = 1,
+  class: wrapperClass,
+
+  // Button
+  button,
+
+  // BounceArrow
+  bounceArrowEnabled = false,
+  bounceArrowIcon = "arrow-down",
+  bounceArrowSize = 10,
+  bounceArrowIconSize = 6,
+  bounceArrowColor = "text-violet-500",
+  bounceArrowHref = "#"
+} = Astro.props;
+
+const wrapperBase = `${useDesign("logoHero.wrapper", "w-full")} ${bg || useDesign("logoHero.background", "bg-white")} ${wrapperClass || ""}`;
+const sectionBase = `${useDesign("logoHero.container", "px-4 py-12")} ${classMain || useDesign("logoHero.content", "")}`;
+const titleClass = `${useDesign("logoHero.title", "text-4xl font-bold")} ${titleColor || useDesign("logoHero.titleColor", "text-gray-900")}`;
+const subtitleClass = `${useDesign("logoHero.subtitle", "text-lg mt-2")} ${subtitleColor || useDesign("logoHero.subtitleColor", "text-gray-600")}`;
+const logoWrapperClass = useDesign("logoHero.logoWrapper", "mb-6");
+const logoClass = useDesign("logoHero.logo", "inline-block");
+
+const sizeMap: Record<string, number> = { sm: 48, md: 96, lg: 144 };
+let resolvedSize;
+if (typeof size === "number") resolvedSize = size;
+else if (typeof size === "string" && /^\d+(?:\.\d+)?$/.test(size)) resolvedSize = Number(size);
+else resolvedSize = sizeMap[size] || sizeMap.md;
+const logoSize = resolvedSize * scale;
+
+const maxWidth = useDesign("layout.defaultMaxWidth", "max-w-4xl");
+---
+
+<div class={wrapperBase}>
+  <section class={`${maxWidth} mx-auto text-center ${sectionBase}`}>
+    {logo && (
+      <div class={logoWrapperClass}>
+        <Icon name={logo} class={`${logoClass} h-${logoSize} mx-auto`} />
+      </div>
+    )}
+
+    {title && <p class={titleClass}>{title}</p>}
+    {subtitle && <p class={subtitleClass}>{subtitle}</p>}
+    {subtitle2 && <p class={subtitleClass}>{subtitle2}</p>}
+
+    {button?.label && (
+      <div class="mt-6 flex justify-center">
+        <Button
+          href={button.href || "#"}
+          variant={button.variant || "primary"}
+        >
+          {button.label}
+        </Button>
+      </div>
+    )}
+
+    {bounceArrowEnabled && (
+      <Link href={bounceArrowHref} class="flex justify-center mt-6">
+        <div class={`animate-bounce w-${bounceArrowSize} h-${bounceArrowSize} flex items-center justify-center`}>
+          <Icon name={bounceArrowIcon} class={`w-${bounceArrowIconSize} h-${bounceArrowIconSize} ${bounceArrowColor}`} />
+        </div>
+      </Link>
+    )}
+  </section>
+</div>

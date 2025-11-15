@@ -1,0 +1,125 @@
+---
+import { UIComponents } from "../ui";
+import BounceArrow from "../atoms/BounceArrow.astro";
+import { useDesign } from "../../utils/useDesign";
+import Button from "../atoms/Button.astro";
+
+const { Heading, Text, Image } = UIComponents;
+
+interface LittleHeroProps {
+  title: string;
+  subtitle?: string;
+  backgroundImage?: string;
+  backgroundColor?: string;
+  overlayColor?: string;
+  titleColor?: string;
+  titleGradient?: string;
+  titleSize?: string;
+  subtitleColor?: string;
+  subtitleSize?: string;
+  showArrow?: boolean;
+  arrowColor?: string;
+  arrowLink?: string;
+}
+
+const props = Astro.props as LittleHeroProps;
+
+const button = (props as any).button;
+
+// -------------------------
+// Wrapper, background and overlay
+// -------------------------
+const wrapperClass = useDesign("littleHero.wrapper");
+const bgColorClass =
+  props.backgroundColor?.trim() || useDesign("littleHero.backgroundColor");
+
+const bgImage =
+  props.backgroundImage?.trim() || useDesign("littleHero.backgroundImage", "");
+
+const overlayColor =
+  props.overlayColor?.trim() || useDesign("littleHero.overlayColor", "");
+
+// -------------------------
+// Text design
+// -------------------------
+const titleColorClass =
+  props.titleColor?.trim() || useDesign("littleHero.title.color");
+const titleGradientClass =
+  props.titleGradient?.trim() || useDesign("littleHero.title.gradient", "");
+
+const titleSizeClass =
+  props.titleSize?.trim() || useDesign("littleHero.title.size");
+const titleWeightClass = useDesign("littleHero.title.weight", "font-extrabold");
+
+const subtitleColorClass =
+  props.subtitleColor?.trim() || useDesign("littleHero.subtitle.color");
+const subtitleSizeClass =
+  props.subtitleSize?.trim() || useDesign("littleHero.subtitle.size");
+
+const arrowColor =
+  props.arrowColor?.trim() || useDesign("littleHero.arrowColor");
+const showArrow = props.showArrow !== false;
+
+const arrowLink =  props.arrowLink;
+
+// -------------------------
+// Global layout max width
+// -------------------------
+const siteMaxWidth = useDesign("site.layout.defaultMaxWidth", "max-w-6xl");
+const containerClass = `relative z-10 mx-auto ${siteMaxWidth}`;
+
+// -------------------------
+// Title style – if there is a gradient, the text will become transparent and take the color from the background
+// -------------------------
+const titleClasses = [
+  titleSizeClass,
+  titleWeightClass,
+  titleGradientClass
+    ? `${titleGradientClass} bg-clip-text text-transparent`
+    : titleColorClass,
+  "mb-4",
+].join(" ");
+---
+
+<section class={`${wrapperClass} ${bgColorClass}`}>
+  {bgImage && (
+    <Image
+      src={bgImage}
+      alt="Little Hero background"
+      class="absolute inset-0 w-full h-full object-cover object-center z-0"
+    />
+  )}
+
+  {overlayColor && <div class={`absolute inset-0 z-5 ${overlayColor}`}></div>}
+
+  <div class={containerClass}>
+    <Heading level={1} class={titleClasses}>
+      {props.title}
+    </Heading>
+
+    {props.subtitle && (
+      <Text class={`${subtitleColorClass} ${subtitleSizeClass} max-w-2xl mx-auto`}>
+        {props.subtitle}
+      </Text>
+    )}
+
+    <!-- 🔥 Button -->
+    {button?.label && (
+      <div class={useDesign("littleHero.buttonWrapper", "mt-8 flex justify-center")}>
+        <Button
+          href={button.href || "#"}
+          variant={button.variant || "primary"}
+        >
+          {button.label}
+        </Button>
+      </div>
+    )}
+
+  </div>
+
+  {showArrow && (
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <BounceArrow href={arrowLink} color={arrowColor} />
+    </div>
+  )}
+</section>

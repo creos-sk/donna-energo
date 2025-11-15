@@ -1,0 +1,37 @@
+{
+  "nav": [
+    {
+      "label": "Home",
+      "href": "/",
+      "icon": "home"
+    },
+    {
+      "label": "Articles",
+      "href": "/articles",
+      "icon": "articles"
+    },
+    {
+      "label": "Gallery",
+      "href": "/gallery",
+      "icon": "gallery"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact",
+      "icon": "contact"
+    }
+  ],
+  "logo": {
+    "wrapper": "",
+    "linksWrapper": "",
+    "icon": ""
+  },
+  "simple": {
+    "icon": "",
+    "logo": {
+      "text": ""
+    }
+  },
+  "sticky": true,
+  "navbarType": "simple"
+}

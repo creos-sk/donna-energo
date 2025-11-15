@@ -1,0 +1,104 @@
+---
+import { UIComponents } from "../ui";
+import { useDesign } from "../../utils/useDesign";
+
+const { Card, Text, Link } = UIComponents;
+
+const {
+  title,
+  description,
+  bgWrapper,
+  bgCard,
+  defaultMaxWidth,
+  items = [],
+  showMap = true,
+  location,
+  mapLayer = "mapnik",
+  class: wrapperClass
+} = Astro.props;
+
+const wrapper = `${useDesign("contactInfo.wrapper", "w-full py-8 px-4")} ${bgWrapper || ""} ${wrapperClass || ""}`;
+const maxWidth = `${defaultMaxWidth || useDesign("contactInfo.maxWidth", "max-w-3xl")}`;
+const cardClass = `${useDesign("contactInfo.card", "rounded-xl shadow-md p-8 bg-white")} ${bgCard || ""}`;
+
+// Map parsing
+// let mapLocation = null;
+// if (location) {
+//   try {
+//     const locObj = typeof location === "string" ? JSON.parse(location) : location;
+//     if (locObj?.lat && locObj?.lng) mapLocation = { lat: locObj.lat, lng: locObj.lng };
+//   } catch (e) {
+//     console.warn("Invalid location format:", e);
+//   }
+// }
+// Map parsing
+let mapLocation = null;
+
+if (location) {
+  try {
+    const locObj = typeof location === "string" ? JSON.parse(location) : location;
+
+    if (locObj?.type === "Point" && Array.isArray(locObj.coordinates)) {
+      const [lng, lat] = locObj.coordinates.map(Number);
+      if (!isNaN(lat) && !isNaN(lng)) mapLocation = { lat, lng };
+    } else if (locObj?.lat && locObj?.lng) {
+      const lat = Number(locObj.lat);
+      const lng = Number(locObj.lng);
+      if (!isNaN(lat) && !isNaN(lng)) mapLocation = { lat, lng };
+    }
+  } catch (e) {
+    console.warn("Invalid location format:", e, location);
+  }
+}
+---
+<div class={wrapper}>
+  <section class={`${maxWidth} mx-auto`}>
+    {title && <h2 class="text-2xl font-bold mb-4">{title}</h2>}
+    {description && <p class="text-gray-600 mb-6">{description}</p>}
+
+    <Card class={cardClass}>
+      <div class="space-y-3">
+        {items.filter(i => i.show).map((i) => (
+          <>
+            {i.type === "sectionTitle" && (
+              <h3 class="text-lg font-semibold mt-4 mb-2 border-b border-gray-200 pb-1">
+                {i.icon && <i class={`${i.icon} mr-2`}></i>}
+                {i.label}
+              </h3>
+            )}
+
+            {i.type === "info" && (
+              <p class="text-sm leading-relaxed">
+                {i.icon && <i class={`${i.icon} mr-2`}></i>}
+                {i.label && <strong>{i.label}: </strong>}
+                {i.link ? (
+                  <Link href={i.link} target="_blank" class="underline hover:text-blue-600">{i.text}</Link>
+                ) : (
+                  i.text
+                )}
+              </p>
+            )}
+
+            {i.type === "text" && (
+              <p class="text-xs text-gray-700 leading-snug">
+                {i.text}
+              </p>
+            )}
+          </>
+        ))}
+      </div>
+    </Card>
+
+    {showMap && mapLocation && (
+      <div class="w-full h-64 mt-6 rounded-xl overflow-hidden">
+        <iframe
+          class="w-full h-full border-0"
+          loading="lazy"
+          allowfullscreen
+          src={`https://www.openstreetmap.org/export/embed.html?bbox=${mapLocation.lng-0.01}%2C${mapLocation.lat-0.01}%2C${mapLocation.lng+0.01}%2C${mapLocation.lat+0.01}&layer=${mapLayer}&marker=${mapLocation.lat}%2C${mapLocation.lng}`}>
+        </iframe>
+
+      </div>
+    )}
+  </section>
+</div>

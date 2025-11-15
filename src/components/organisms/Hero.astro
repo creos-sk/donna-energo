@@ -1,0 +1,151 @@
+---
+import { UIComponents } from "../ui";
+import { useDesign } from "../../utils/useDesign";
+
+const { Heading, Text, Button, Image } = UIComponents;
+
+interface HeroProps {
+  bgImage?: string;
+  bgColor?: string;
+  overlayColor?: string;
+  containerClass?: string; // CMS value
+  left?: {
+    headings?: { text: string; level?: number; class?: string }[];
+    text?: string;
+    textClass?: string;
+    buttons?: { label: string; href: string; variant?: string }[];
+  };
+  right?: {
+    blocks?: {
+      title?: string;
+      text?: string;
+      bgColor?: string;
+      textColor?: string;
+      buttons?: { label: string; href: string; variant?: string }[];
+    }[];
+  };
+  mainHeadingText?: string;
+  mainHeadingDesign?: {
+    mainHeadingColor?: string;
+    mainHeadingSize?: string;
+    mainHeadingWeight?: string;
+    mainHeadingAlign?: string;
+  };
+  design?: {
+    wrapper?: string;
+    container?: string;
+    gap?: string;
+    py?: string;
+    px?: string;
+  };
+}
+
+const props = Astro.props as HeroProps;
+
+// ------------------------
+// Background & wrapper
+// ------------------------
+const wrapperClass = useDesign("hero.design.wrapper", "relative w-full overflow-hidden");
+const pySpace = props.design.py?.trim() || useDesign("hero.design.py", "");
+const pxSpace = props.design.px?.trim() || useDesign("hero.design.px", "");
+const gapSpace = props.design.gap?.trim() || useDesign("hero.design.gap", "");
+
+const bgColor = props.bgColor?.trim() || useDesign("hero.bgColor", "bg-white");
+const overlayColor = props.overlayColor?.trim() || useDesign("hero.overlayColor", "");
+const bgImage = props.bgImage?.trim() || useDesign("hero.bgImage", "");
+
+// ------------------------
+// Container – CMS priority, then site fallback
+// ------------------------
+let containerClass = props.containerClass?.trim();
+
+// If CMS has not entered anything, site.layout.defaultMaxWidth will be used
+if (!containerClass) {
+  const siteMaxWidth = useDesign("layout.defaultMaxWidth", "max-w-6xl");
+  containerClass = `${siteMaxWidth} mx-auto px-4 md:px-0`;
+}
+
+// Hero design container - only layout (flex/col/gap), **without max-w**
+const heroDesignContainer = useDesign("hero.design.container", "flex flex-col gap-8");
+
+// Final containerClass: first CMS/site fallback, then hero design (layout)
+containerClass = `${containerClass} ${heroDesignContainer}`.trim();
+
+// ------------------------
+// Main heading
+// ------------------------
+const mainHeadingText = props.mainHeadingText?.trim() || useDesign("hero.mainHeadingText", "Welcome to my site!");
+const mainHeadingColor = props.mainHeadingDesign?.mainHeadingColor?.trim() || useDesign("hero.mainHeadingDesign.mainHeadingColor", "text-gray-800");
+const mainHeadingSize = props.mainHeadingDesign?.mainHeadingSize?.trim() || useDesign("hero.mainHeadingDesign.mainHeadingSize", "text-5xl");
+const mainHeadingWeight = props.mainHeadingDesign?.mainHeadingWeight?.trim() || useDesign("hero.mainHeadingDesign.mainHeadingWeight", "font-black");
+const mainHeadingAlign = props.mainHeadingDesign?.mainHeadingAlign?.trim() || useDesign("hero.mainHeadingDesign.mainHeadingAlign", "text-left");
+const mainHeadingClass = `${mainHeadingColor} ${mainHeadingSize} ${mainHeadingWeight} ${mainHeadingAlign} `;
+
+// ------------------------
+// Left & Right blocks
+// ------------------------
+const left = props.left || useDesign("hero.left", {});
+const right = props.right || useDesign("hero.right", {});
+
+const leftBlockClass = useDesign("hero.left.block", "flex flex-1 flex-col space-y-4 relative z-30");
+const rightBlockClass = useDesign("hero.right.block", "flex flex-1 flex-col space-y-2 relative z-40");
+const innerBoxClass = useDesign("hero.right.innerBox", "p-4 rounded-2xl bg-gray-100 text-gray-800");
+
+const textClass = useDesign("hero.text", "text-base text-gray-700 z-50");
+const buttonsWrapperClass = useDesign("hero.buttons.wrapper", "flex flex-wrap gap-6 pt-2");
+const rightButtonsWrapperClass = useDesign("hero.right.buttons.wrapper", "flex flex-wrap gap-3");
+const z50 = "z-50";
+---
+<section class={`${wrapperClass} ${bgColor} ${pySpace} ${pxSpace} ${gapSpace}`}>
+  {bgImage && (
+    <>
+      <Image src={bgImage} alt="Hero background" class="absolute inset-0 w-full h-full object-cover z-10" />
+      {overlayColor && <div class={`absolute inset-0 z-20 ${overlayColor}`}></div>}
+    </>
+  )}
+
+  <div class={containerClass}>
+    <Heading level={1} class={`${z50} ${mainHeadingClass}`}>{mainHeadingText}</Heading>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 w-full gap-6">
+      {/* Left block */}
+      <div class={leftBlockClass}>
+        {(left?.headings || []).map((h) => {
+          const hClass = h.class?.trim() || useDesign("hero.left.heading", "text-2xl font-semibold");
+          return <Heading level={h.level ?? 2} class={hClass}>{h.text}</Heading>;
+        })}
+
+        {left?.text && <Text class={left.textClass?.trim() || textClass}>{left.text}</Text>}
+
+        {(left?.buttons || []).length > 0 && (
+          <div class={buttonsWrapperClass}>
+            {(left?.buttons || []).map((btn) => (
+              <Button variant={btn.variant || "primary"} href={btn.href}>{btn.label}</Button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Right block */}
+      <div class={rightBlockClass}>
+        {(right?.blocks || []).map((b) => {
+          const boxBg = b.bgColor?.trim() || "";
+          const boxText = b.textColor?.trim() || "";
+          return (
+            <div class={`${innerBoxClass} ${boxBg} ${boxText}`}>
+              {b.title && <Heading level={3} class="text-2xl font-semibold mb-2">{b.title}</Heading>}
+              {b.text && <Text class="text-base mb-2">{b.text}</Text>}
+              {(b.buttons || []).length > 0 && (
+                <div class={rightButtonsWrapperClass}>
+                  {(b.buttons || []).map((btn) => (
+                    <Button variant={btn.variant || "primary"} href={btn.href}>{btn.label}</Button>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</section>

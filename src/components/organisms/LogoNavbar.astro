@@ -1,0 +1,50 @@
+---
+// components/organisms/Navbar/LogoNavbar.astro
+import { UIComponents } from "../ui";
+import site from "../../config/site.json";
+import navbar from "../../config/navbar.json";
+import { useDesign } from "../../utils/useDesign";
+
+const { Icon } = UIComponents;
+
+const sticky = navbar.sticky;
+const stickyClass = sticky ? "sticky top-0 z-50" : "";
+
+// Layout – loads from site.layout.defaultMaxWidth or from defaultDesign.layout.defaultMaxWidth
+const maxWidth = useDesign("layout.defaultMaxWidth", "max-w-6xl");
+
+// 🎨 Dizajn cez navbar.json alebo fallback do defaultDesign
+const wrapperClass = navbar.wrapper || useDesign("navbar.logo.wrapper", "bg-amber-700");
+const logoWrapperClass = navbar.logoWrapper || useDesign("navbar.logo.logoWrapper", "py-5 flex justify-center items-center shadow-md");
+const linksWrapperClass = navbar.linksWrapper || useDesign("navbar.logo.linksWrapper", "bg-amber-800 py-4");
+const logoContainerWidth = navbar.logoContainerWidth || useDesign("navbar.logo.logoContainerWidth", "max-w-6xl mx-auto");
+const linkTextClass = navbar.text || useDesign("navbar.logo.text", "text-white/80 font-medium");
+const linkHoverClass = navbar.textHover || useDesign("navbar.logo.textHover", "hover:text-white");
+const iconClass = navbar.icon || useDesign("navbar.logo.icon", "text-amber-400");
+const logoSizeClass = navbar.logoSize || useDesign("navbar.logo.logo.size", "h-4 w-16");
+
+// 📚 Content
+const navItems = navbar.nav || [];
+---
+<nav class={`${wrapperClass} ${stickyClass} z-100`}>
+  <div class={`${logoWrapperClass} `}>
+    <a href={site.logo?.href || "/"} aria-label="Home">
+      <Icon name={site.logo?.name || "logo"} class={`${logoSizeClass}`} />
+    </a>
+  </div>
+  <div class={`${linksWrapperClass}`}>
+    <ul class={`${logoContainerWidth} flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8`}>
+      {navItems.map(link => (
+        <li key={link.href}>
+          <a
+            href={link.href}
+            class={`flex items-center gap-2 ${linkTextClass} ${linkHoverClass} transition-colors`}
+          >
+            {link.icon && <Icon name={link.icon} class={`w-5 h-5 ${iconClass}`} />}
+            <span>{link.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>

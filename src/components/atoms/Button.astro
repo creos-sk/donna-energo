@@ -1,0 +1,58 @@
+---
+import { useDesign } from "../../utils/useDesign";
+import type { ButtonProps } from "./types";
+
+const { 
+  variant = "primary", 
+  class: extra = "", 
+  type = "button",
+  href,
+  disabled = false,
+  loading = false,
+  ...props 
+} = Astro.props as ButtonProps;
+
+// base
+const baseClass = useDesign("button.base", "");
+
+// first we try to load button.variants.[variant]
+const variantClass = useDesign(`button.variants.${variant}`, "");
+
+// if it doesn't exist, fallback to primary
+const fallbackVariant = useDesign("button.variants.primary", "");
+
+// final result
+const finalClass = `${baseClass} ${variantClass || fallbackVariant} ${extra}`.trim();
+---
+{href ? (
+  <a 
+    href={href}
+    class={finalClass}
+    aria-disabled={disabled || loading}
+    {...props}
+  >
+    {loading && (
+      <svg class="animate-spin -ml-1 mr-2 h-4 w-4" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0..." />
+      </svg>
+    )}
+    <slot />
+  </a>
+) : (
+  <button 
+    type={type}
+    class={finalClass}
+    disabled={disabled || loading}
+    aria-busy={loading}
+    {...props}
+  >
+    {loading && (
+      <svg class="animate-spin -ml-1 mr-2 h-4 w-4" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0..." />
+      </svg>
+    )}
+    <slot />
+  </button>
+)}

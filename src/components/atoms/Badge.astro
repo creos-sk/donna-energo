@@ -1,0 +1,20 @@
+---
+import { useDesign } from "../../utils/useDesign";
+import type { BadgeProps } from "./types";
+
+// Props
+const { variant = "primary", class: extra = "" } = Astro.props as BadgeProps;
+
+// -------------------------
+// Design via useDesign
+// -------------------------
+const badgeBase = useDesign("badge.base", "inline-block px-2 py-1 rounded-full text-sm font-semibold");
+const badgeVariant = useDesign(`badge.variants.${variant}`, useDesign("badge.variants.primary", "bg-blue-500 text-white"));
+
+// Composition of the final class
+const classes = `${badgeBase} ${badgeVariant} ${extra}`.trim();
+---
+
+<span class={classes}>
+  <slot />
+</span>

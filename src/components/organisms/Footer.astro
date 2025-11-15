@@ -1,0 +1,56 @@
+---
+import { UIComponents } from "../ui";
+import site from "../../config/site.json";
+import footer from "../../config/footer.json";
+import { useDesign } from "../../utils/useDesign";
+
+const { Icon, Text, Link } = UIComponents;
+
+// 📏 Max width
+const maxWidth = useDesign("layout.defaultMaxWidth", "max-w-6xl");
+
+// 🎨 Footer design via useDesign + fallbacks
+const wrapperClass = footer.wrapper || useDesign("footer.wrapper", "bg-gray-100");
+const containerClass = useDesign("footer.container", "flex flex-col md:flex-row justify-between items-center px-4 py-6 gap-4");
+const paddingClass = useDesign("footer.padding", "py-4 px-4");
+
+// Colors and texts from CMS or fallback
+const bgColorClass = footer.bgColor || useDesign("footer.bgColor", "bg-gray-100");
+const textColorClass = footer.textColor || useDesign("footer.textColor", "text-gray-600");
+const textHoverColorClass = footer.textHoverColor || useDesign("footer.textHoverColor", "hover:text-gray-800");
+const textSizeClass = footer.textSize || useDesign("footer.textSize", "text-sm");
+const iconColorClass = footer.iconColor || useDesign("footer.iconColor", "text-gray-500");
+const iconSizeClass = footer.iconSize || useDesign("footer.iconSize", "w-5 h-5");
+const logoSizeClass = footer.logoSize || useDesign("footer.logoSize", "w-8 h-8");
+
+// 📚 Content
+const year = new Date().getFullYear();
+const company = site.siteName || "Website";
+const socials = footer.socials || [];
+---
+<footer class={`${bgColorClass} ${paddingClass}`}>
+  <div class={`${containerClass} ${maxWidth} mx-auto`}>
+    <!-- Left part -->
+    <Link href="/" class="flex items-center gap-2" aria-label="Home">
+      <Icon name={site.logo?.name || "logo"} class={`${logoSizeClass} ${textColorClass}`} />
+    </Link>
+    <!-- Center / text -->
+    <Text variant="small" class={`${textColorClass} ${textSizeClass}`}>
+      © 2016 - {year} / {company}, {footer?.footerText || ""}
+    </Text>
+    <!-- Right side / social networks -->
+    <div class="flex items-center gap-4">
+      {socials.map(social => (
+        <Link
+          href={social.href}
+          aria-label={social.label}
+          target="_blank"
+          rel="noopener noreferrer"
+          class={`${textColorClass} ${textHoverColorClass} transition-colors`}
+        >
+          <Icon name={social.icon} class={`${iconSizeClass} ${iconColorClass}`} />
+        </Link>
+      ))}
+    </div>
+  </div>
+</footer>

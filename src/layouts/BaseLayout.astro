@@ -1,0 +1,28 @@
+---
+import '../styles/global.css';
+import { UIComponents } from '../components/ui';
+import site from '../config/site.json';
+import navbar from '../config/navbar.json';
+import { defaultDesign } from '../config/default_design';
+import footer from '../config/footer.json';
+
+const { title = "My site" } = Astro.props;
+
+// Fallback body class
+const bodyClass = site.theme?.base?.body || defaultDesign.layout.body;
+---
+<html lang="sk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body class={bodyClass}>
+    <UIComponents.Navbar />
+    <main class="mx-auto">
+      <slot />
+    </main>
+    <UIComponents.ScrollToTopArrow />
+    <UIComponents.Footer text={`© ${new Date().getFullYear()} ${site.siteName} ${footer.footerText}`} />
+  </body>
+</html>

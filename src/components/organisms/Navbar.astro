@@ -1,0 +1,14 @@
+---
+import site from "../../config/navbar.json";
+import SimpleNavbar from "./SimpleNavbar.astro";
+import LogoNavbar from "./LogoNavbar.astro";
+
+// Typ navbaru z configu – "simple" alebo "logo"
+const NavbarType = site.navbarType || "simple";
+const { sticky = false } = Astro.props;
+---
+{NavbarType === "logo" ? (
+  <LogoNavbar sticky={sticky} />
+) : (
+  <SimpleNavbar sticky={sticky} />
+)}

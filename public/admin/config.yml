@@ -1,0 +1,877 @@
+backend:
+  name: git-gateway
+  branch: main
+local_backend: true
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+
+  # -------------------------------------------------------
+  # 🏠 Pages (Page Builder - JSON)
+  # -------------------------------------------------------
+  - name: "pages"
+    label: "Pages"
+    folder: "src/content/pages"
+    format: "json"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Slug", name: "slug", widget: "string", required: true }
+
+      # -----------------------------------------------
+      # 🧩 Blocks builder (components)
+      # -----------------------------------------------
+      - label: "Blocks"
+        name: "blocks"
+        widget: "list"
+        types:
+
+          # -------------------------------------------
+          # Section Title Block
+          # -------------------------------------------
+          - label: "Section Title"
+            name: "sectionTitle"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: true }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - { label: "Icon name", name: "iconName", widget: "string", required: false }
+              - { label: "Icon class", name: "iconClass", widget: "string", required: false, hint: "Ex. h-6 w-6 text-stone-400" }
+              - { label: "Title Color", name: "titleColor", widget: "string", required: false }
+              - { label: "Subtitle Color", name: "subtitleColor", widget: "string", required: false }
+              - { label: "Alignment", name: "alignment", widget: "select", options: ["left", "center", "right"], default: "left" }
+              - { label: "Spacing (Tailwind)", name: "spacing", widget: "string", required: false }
+              - { label: "Background Color", name: "bgColor", widget: "string", required: false, hint: "Ex. bg-stone-100" }
+              - { label: "Wrapper Class (Tailwind)", name: "class", widget: "string", required: false, hint: "Ex. bg-stone-100, text-white, border-b" }
+              - { label: "Bottom Border", name: "borderBottom", widget: "select", required: false, default: "border-b border-gray-300", options: [
+                  "none",
+                  "border-b border-gray-200",
+                  "border-b border-gray-300",
+                  "border-b border-gray-400",
+                  "border-b border-gray-600",
+                  "border-b-2 border-blue-300",
+                  "border-b-2 border-gray-600",
+                  "border-b-2 border-stone-200",
+                  "border-b-2 border-stone-300",
+                  "border-b-2 border-neutral-200",
+                  "border-b-2 border-neutral-300",
+                  "border-b-3 border-amber-200",
+                  "border-b-3 border-sky-200"
+                ] }
+              - { label: "ID ( for anchor links like #section)", name: "id", widget: "string", required: false }
+
+          # -------------------------------------------
+          # Section (Section.astro)
+          # -------------------------------------------
+          - label: "Section"
+            name: "section"
+            widget: "object"
+            fields:
+              - label: "Layout (grid columns)"
+                name: "layout"
+                widget: "select"
+                options: ["1", "2", "3", "4"]
+                default: "1"
+
+              - label: "Background"
+                name: "background"
+                widget: "select"
+                required: false
+                options:
+                  # No background
+                  - { label: "None", value: "" }
+
+                  # Solid bg
+                  - { label: "White", value: "bg-white" }
+                  - { label: "Gray 100", value: "bg-gray-100" }
+                  - { label: "Gray 800", value: "bg-gray-800 text-white" }
+                  - { label: "Slate 900", value: "bg-slate-900 text-white" }
+                  - { label: "Stone 50", value: "bg-stone-50" }
+                  - { label: "Blue 100", value: "bg-blue-100" }
+                  - { label: "Blue 200", value: "bg-blue-200" }
+
+                  # Light bg
+                  - { label: "Favorite → Light Blue", value: "bg-gradient-to-br from-blue-50 to-blue-200" }
+                  - { label: "Sky → Indigo", value: "bg-gradient-to-b from-sky-100 via-sky-200 to-indigo-100" }
+                  - { label: "Gray → Stone", value: "bg-gradient-to-b from-gray-100 via-stone-100 to-gray-200" }
+                  - { label: "Emerald → Teal", value: "bg-gradient-to-b from-emerald-100 via-teal-100 to-emerald-200" }
+
+                  # Brand / modern bg
+                  - { label: "Sky → Purple", value: "bg-gradient-to-b from-sky-400 via-indigo-500 to-purple-600 text-white" }
+                  - { label: "Emerald → Cyan", value: "bg-gradient-to-b from-emerald-400 via-teal-400 to-cyan-500 text-white" }
+                  - { label: "Blue → Indigo", value: "bg-gradient-to-b from-blue-500 via-indigo-500 to-indigo-700 text-white" }
+
+                  # Warm bg
+                  - { label: "Amber → Orange", value: "bg-gradient-to-b from-amber-300 via-orange-400 to-amber-500 text-white" }
+                  - { label: "Rose → Pink", value: "bg-gradient-to-b from-rose-300 via-pink-400 to-rose-500 text-white" }
+                  - { label: "Amber → Red", value: "bg-gradient-to-b from-amber-400 via-orange-500 to-red-600 text-white" }
+
+                  # Dark bg (hero / footer)
+                  - { label: "Slate → Gray", value: "bg-gradient-to-b from-slate-800 via-gray-800 to-slate-900 text-white" }
+                  - { label: "Indigo → Violet", value: "bg-gradient-to-b from-indigo-700 via-indigo-800 to-violet-900 text-white" }
+                  - { label: "Emerald → Teal Dark", value: "bg-gradient-to-b from-emerald-700 via-teal-700 to-emerald-800 text-white" }
+
+                default: "bg-white"
+
+              - label: "Content width (Tailwind max-w)"
+                name: "contentWidth"
+                widget: "string"
+                required: false
+                default: "max-w-3xl"
+
+              - label: "Additional classes"
+                name: "class"
+                widget: "string"
+                required: false
+
+              # ---------------------------
+              # Inner Blocks
+              # ---------------------------
+              - label: "Inner blocks"
+                name: "blocks"
+                widget: "list"
+                types:
+
+                  # --- Card block ---
+                  - label: "Card"
+                    name: "card"
+                    widget: "object"
+                    fields:
+                      - { label: "Title", name: "title", widget: "string", required: true }
+
+                      - { label: "Heading class", name: "headingClass", widget: "string", required: false }
+
+                      - { label: "Text", name: "text", widget: "markdown", required: true }
+
+                      - { label: "Text class", name: "textClass", widget: "string", required: false }
+
+                      - { label: "Image", name: "image", widget: "image", required: false }
+
+                      - { label: "Center text", name: "textCenter", widget: "boolean", required: false }
+
+                      # ----------------------------------------
+                      # Button (optional, end of Card content)
+                      # ----------------------------------------
+                      - label: "Button"
+                        name: "button"
+                        widget: "object"
+                        required: false
+                        fields:
+                          - { name: "label", label: "Button text", widget: "string", required: false }
+                          - { name: "href", label: "Link", widget: "string", required: false }
+                          - name: "variant"
+                            label: "Variant"
+                            widget: "select"
+                            required: false
+                            options: [primary, secondary, accent, ghost, danger, lime, amber, emerald]
+
+          # -------------------------------------------
+          # HERO
+          # -------------------------------------------
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - name: mainHeadingText
+                label: Main title
+                widget: string
+                required: false
+
+              # ----------------------------------
+              # Nadpis – style a look
+              # ----------------------------------
+              - label: "Main heading style"
+                name: mainHeadingDesign
+                widget: object
+                fields:
+                  - { name: mainHeadingColor, label: "Text color", widget: string, default: "text-gray-600", required: false }
+                  - { name: mainHeadingSize, label: "Text size", widget: select, options: ["text-3xl", "text-4xl", "text-5xl", "text-6xl" , "text-7xl"], default: "text-6xl", required: false }
+                  - { name: mainHeadingWeight, label: "Font weight", widget: select, options: ["font-normal", "font-semibold", "font-bold", "font-extrabold", "font-black"], default: "font-extrabold", required: false }
+                  - { name: mainHeadingAlign, label: "Text align", widget: select, options: ["text-left", "text-center", "text-right"], default: "text-left", required: false }
+
+              # ----------------------------------
+              # Bg and overlay
+              # ----------------------------------
+              - name: bgColor
+                label: Background color
+                widget: select
+                options:
+                  - bg-white
+                  - bg-black
+                  - bg-gray-100
+                  - bg-gradient-to-br from-blue-100 to-indigo-700
+                  - bg-gradient-to-br from-blue-50 to-blue-200
+                  - bg-gradient-to-br from-pink-50 to-pink-200
+                  - bg-gradient-to-br from-emerald-50 to-emerald-200
+                  - bg-gradient-to-br from-orange-400 to-pink-600
+                  - bg-gradient-to-br from-indigo-600 to-blue-900
+                  - bg-gradient-to-br from-slate-700 to-gray-900
+                  - bg-gradient-to-br from-gray-900 via-gray-800 to-black
+                  - bg-gradient-to-br from-amber-300 to-amber-600
+                  - bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500
+                required: false
+
+              - name: overlayColor
+                label: Overlay color / gradient
+                widget: select
+                required: false
+                options:
+                  - { label: "None", value: "" }
+                  - { label: "Dark (united)", value: "bg-black/40" }
+                  - { label: "Dark from bottom", value: "bg-gradient-to-t from-black/70 to-transparent" }
+                  - { label: "Dark from left", value: "bg-gradient-to-r from-black/60 to-transparent" }
+                  - { label: "Dark from top", value: "bg-gradient-to-b from-black/70 to-transparent" }
+                  - { label: "Dark from right", value: "bg-gradient-to-l from-black/60 to-transparent" }
+                  - { label: "Blue from bottom", value: "bg-gradient-to-t from-sky-900/60 to-transparent" }
+                  - { label: "Purple from bottom", value: "bg-gradient-to-t from-purple-900/60 to-transparent" }
+                  - { label: "Warm gradient", value: "bg-gradient-to-t from-orange-800/40 via-rose-700/30 to-transparent" }
+                  - { label: "Blue-purple diagonal", value: "bg-gradient-to-tr from-indigo-900/70 via-purple-800/50 to-transparent" }
+                  - { label: "Glass light", value: "bg-gradient-to-t from-white/10 via-white/5 to-transparent backdrop-blur-sm" }
+
+              - name: bgImage
+                label: Background image
+                widget: image
+                required: false
+
+              - name: containerClass
+                label: Container (max-width rewriting)
+                hint: "max-w-5xl" 
+                widget: string
+                required: false
+
+              # ----------------------------------
+              # Left block
+              # ----------------------------------
+              - name: left
+                label: Left block
+                widget: object
+                fields:
+                  - name: headings
+                    label: Headings
+                    widget: list
+                    fields:
+                      - { name: text, label: Title text, widget: string }
+                      - { name: level, label: Level (h2-h6), widget: number, default: 2 }
+                      - { name: class, label: CSS class, widget: string, required: false }
+                  - { name: text, label: Text block, widget: text, required: false }
+                  - { name: textClass, label: Text class, widget: string, required: false }
+                  - name: buttons
+                    label: Buttons
+                    widget: list
+                    fields:
+                      - { name: label, label: Button text, widget: string }
+                      - { name: href, label: Link, widget: string }
+                      - name: variant
+                        label: Variant
+                        widget: select
+                        options: [primary, secondary, accent, ghost, danger, lime, amber, emerald]
+                        required: false
+
+              # ----------------------------------
+              # Right block
+              # ----------------------------------
+              - name: right
+                label: Right block
+                widget: object
+                fields:
+                  - name: blocks
+                    label: Blocks
+                    widget: list
+                    fields:
+                      - { name: title, label: Title, widget: string, required: false  }
+                      - { name: text, label: Text, widget: text, required: false }
+                      - { name: bgColor, label: Background Color, widget: string, required: false }
+                      - { name: textColor, label: Text Color, widget: string, required: false }
+                      - name: buttons
+                        label: Buttons
+                        widget: list
+                        required: false
+                        fields:
+                          - { name: label, label: Button text, widget: string }
+                          - { name: href, label: Link, widget: string }
+                          - name: variant
+                            label: Variant
+                            widget: select
+                            options: [primary, secondary, accent, ghost, danger, lime, amber, emerald]
+                            required: false
+
+              # ----------------------------------
+              # Layout a spacing
+              # ----------------------------------
+              - name: design
+                label: Layout / spacing
+                widget: object
+                fields:
+                  - { name: wrapper, label: Wrapper Class, widget: string, required: false, hint: "relative w-full overflow-hidden" }
+                  - { name: container, label: Container Class, widget: string, required: false, hint: "flex flex-col gap-8" }
+                  - { name: gap, label: Gap between blocks, widget: string, required: false, hint: "gap-8" }
+                  - { name: py, label: Padding Y, widget: string, required: false, hint: "py-24" }
+                  - { name: px, label: Padding X, widget: string, required: false, hint: "px-6" }
+
+          # -------------------------------------------------------
+          # 🦸 Little Hero
+          # -------------------------------------------------------
+          - label: "Little Hero"
+            name: "littleHero"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text", required: false }
+              - { label: "Background Image", name: "backgroundImage", widget: "image", required: false }
+              - 
+                label: "Background Color"
+                name: "backgroundColor"
+                widget: "select"
+                required: false
+                hint: "Choose a color or gradient for the background if no image is used."
+                options:
+                  - ""
+                  # Light
+                  - bg-white
+                  - bg-gray-50
+                  - bg-gradient-to-br from-blue-50 to-blue-200
+                  # Dark
+                  - bg-gray-900
+                  - bg-stone-800
+                  - bg-gradient-to-br from-slate-700 to-gray-900
+                  # Dynamic gradients
+                  - bg-gradient-to-br from-blue-400 to-indigo-700
+                  - bg-gradient-to-br from-purple-600 via-pink-500 to-red-500
+                  - bg-gradient-to-br from-amber-300 to-amber-600
+                  - bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500
+
+              - { label: "Title Color", name: "titleColor", widget: "string", required: false }
+
+              - 
+                label: "Title Gradient"
+                name: "titleGradient"
+                widget: "select"
+                required: false
+                hint: "Optional gradient instead of title color."
+                options:
+                  - ""
+                  - bg-gradient-to-r from-blue-400 to-indigo-600
+                  - bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
+                  - bg-gradient-to-br from-amber-400 to-orange-600
+                  - bg-gradient-to-br from-emerald-400 to-teal-600
+                  - bg-gradient-to-r from-gray-100 to-gray-300
+
+              - { label: "Title Size", name: "titleSize", widget: "string", required: false }
+              - { label: "Subtitle Color", name: "subtitleColor", widget: "string", required: false }
+              - { label: "Subtitle Size", name: "subtitleSize", widget: "string", required: false }
+              - { label: "Show Arrow", name: "showArrow", widget: "boolean", default: true }
+              - { label: "Arrow Color", name: "arrowColor", widget: "string", required: false, hint: "Arrow Color Class" }
+              - { label: "Arrow Link", name: "arrowLink", widget: "string", required: false, hint: "Arrow Link" }
+              # ---------------------------------------
+              # Button (optional)
+              # ---------------------------------------
+              - label: "Button"
+                name: "button"
+                widget: "object"
+                required: false
+                fields:
+                  - { name: "label", label: "Button text", widget: "string", required: false }
+                  - { name: "href", label: "Link", widget: "string", required: false }
+                  - name: "variant"
+                    label: "Variant"
+                    widget: "select"
+                    required: false
+                    options: [primary, secondary, accent, ghost, danger, lime, amber, emerald]
+
+          # -------------------------------------------
+          # LogoHero
+          # -------------------------------------------
+          - label: "Logo Hero"
+            name: "logoHero"
+            widget: "object"
+            fields:
+              - { label: "Logo", name: "logo", widget: "string", required: false }
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - { label: "Subtitle 2", name: "subtitle2", widget: "string", required: false }
+              - { label: "Background", name: "bg", widget: "string", required: false, default: "bg-gray-400" }
+              - { label: "Title Color", name: "titleColor", widget: "string", required: false, default: "text-gray-700" }
+              - { label: "Subtitle Color", name: "subtitleColor", widget: "string", required: false, default: "text-gray-700/80" }
+              - { label: "Size", name: "size", widget: "select", options: ["sm", "md", "lg"], default: "md" }
+              - { label: "Scale", name: "scale", widget: "number", default: 1 }
+
+              # -------------------------------
+              # Container a Content (new fields)
+              # -------------------------------
+              - label: "Container Classes"
+                name: "containerClass"
+                widget: "string"
+                required: false
+                default: "flex flex-col items-center justify-center"
+              - label: "Content Spacing Classes"
+                name: "contentClass"
+                widget: "string"
+                required: false
+                default: "py-4"
+
+              # -------------------------------
+              # BounceArrow settings
+              # -------------------------------
+              - label: "Enable Bounce Arrow"
+                name: "bounceArrowEnabled"
+                widget: "boolean"
+                default: false
+              - label: "Arrow Link (href)"
+                name: "bounceArrowHref"
+                widget: "string"
+                required: false
+                default: "#"
+              - label: "Arrow Icon Name"
+                name: "bounceArrowIcon"
+                widget: "select"
+                options: ["arrow-down", "arrow-up", "chevron-down", "chevron-up", "arrow-circle-up", "arrow-circle-down"]
+                default: "arrow-down"
+              - label: "Arrow Size"
+                name: "bounceArrowSize"
+                widget: "number"
+                required: false
+                default: 10
+              - label: "Arrow Icon Size"
+                name: "bounceArrowIconSize"
+                widget: "number"
+                required: false
+                default: 6
+              - label: "Arrow Color"
+                name: "bounceArrowColor"
+                widget: "string"
+                required: false
+                default: "text-gray-600/50"
+
+              # -------------------------------------------
+              # Button (optional)
+              # -------------------------------------------
+              - label: "Button"
+                name: "button"
+                widget: "object"
+                required: false
+                fields:
+                  - { name: "label", label: "Button text", widget: "string", required: false }
+                  - { name: "href", label: "Link", widget: "string", required: false }
+                  - name: "variant"
+                    label: "Variant"
+                    widget: "select"
+                    required: false
+                    options: [primary, secondary, accent, ghost, danger, lime, amber, emerald]
+
+
+
+          # -------------------------------------------
+          # Markdown Section
+          # -------------------------------------------
+          - label: "Markdown section"
+            name: "markdownSection"
+            widget: "object"
+            fields:
+              - label: "Content (Markdown)"
+                name: "markdown"
+                widget: "markdown"
+                hint: "Insert text here with Markdown syntax support (headings, paragraphs, links, ...)."
+
+              - label: "Text center"
+                name: "center"
+                widget: "boolean"
+                default: false
+                hint: "If checked, the entire Markdown content will be center-aligned."
+
+              - label: "Background color (wrapper)"
+                name: "wrapperClass"
+                widget: "string"
+                required: false
+                hint: "Recommended: bg-gray-50 py-16, use light colors."
+
+              - label: "Container classes"
+                name: "containerClass"
+                widget: "string"
+                required: false
+                hint: "Recommended: max-w-4xl mx-auto px-4, or smaller width like 3xl"
+
+              - label: "Prose style"
+                name: "proseClass"
+                widget: "string"
+                required: false
+                hint: "prose prose-invert prose-headings:text-white prose-p:text-stone-300."
+
+          # -------------------------------------------
+          # Text Image Section
+          # -------------------------------------------
+          - name: textImageSection
+            label: Text + Image Section
+            widget: object
+            fields:
+              - { name: markdown, label: Markdown Content, widget: markdown, required: false }
+              - { name: imageSrc, label: Image, widget: image, required: false }
+              - { name: imageAlt, label: Image Alt Text, widget: string, required: false }
+              - { name: bgColor, label: Background Color, widget: string, required: false }
+              - { name: reverse, label: Reverse Layout, widget: boolean, required: false, default: false }
+              - { name: wrapperClass, label: Wrapper Class, widget: string, required: false }
+              - { name: containerClass, label: Container Class, widget: string, required: false }
+              - { name: textClass, label: Text Block Class, widget: string, required: false }
+              - { name: imageClass, label: Image Block Class, widget: string, required: false }
+
+          # -------------------------------------------
+          # Button Block
+          # -------------------------------------------
+          - label: "Button Block"
+            name: "buttonBlock"
+            widget: "object"
+            fields:
+              - { label: "Container Background", name: "bgColor", widget: "string", required: false, hint: "Ex. bg-blue-500" }
+              - { label: "Padding Y", name: "paddingY", widget: "string", required: false, hint: "napr. py-8" }
+              - { label: "Padding X", name: "paddingX", widget: "string", required: false, hint: "napr. px-4" }
+              - label: "Button"
+                name: "button"
+                widget: "object"
+                fields:
+                  - { label: "Text", name: "text", widget: "string", required: true }
+                  - { label: "Link", name: "href", widget: "string", required: false }
+                  - { label: "Variant", name: "variant", widget: "select", options: ["primary","secondary","accent", "ghost", "danger", "lime", "amber", "emerald"], default: "primary" }
+                  - { label: "Disabled", name: "disabled", widget: "boolean", default: false }
+
+          # -------------------------------------------
+          # Articles Preview Block
+          # -------------------------------------------
+          - label: "Article Preview"
+            name: "articlePreview"
+            widget: "object"
+            fields:
+              - label: "Number of articles"
+                name: "count"
+                widget: "number"
+                required: false
+                default: 3
+              - label: "Background color"
+                name: "bgColor"
+                widget: "string"
+                hint: "bg-gray-100"
+                required: false
+
+          # -------------------------------------------
+          # Gallery Preview Block
+          # -------------------------------------------
+          - label: "Gallery Preview"
+            name: "galleryPreview"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+
+              # switches
+              - { label: "Show Title", name: "showTitle", widget: "boolean", required: false }
+              - { label: "Show Subtitle", name: "showSubtitle", widget: "boolean", required: false }
+
+              - { label: "Limit", name: "limit", widget: "number", required: false }
+              - { label: "Enable Lightbox", name: "enableLightbox", widget: "boolean", required: false }
+
+              # Design fields (no defaults!)
+              - label: "Background class"
+                name: "bgClass"
+                widget: "string"
+                required: false
+              - label: "Title class"
+                name: "titleClass"
+                widget: "string"
+                required: false
+              - label: "Subtitle class"
+                name: "subtitleClass"
+                widget: "string"
+                required: false
+              - label: "Item class"
+                name: "itemClass"
+                widget: "string"
+                required: false
+              - label: "Image class"
+                name: "imageClass"
+                widget: "string"
+                required: false
+              - label: "Image title class"
+                name: "imageTitleClass"
+                widget: "string"
+                required: false
+
+              # Fields for images
+              - label: "Items"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Image", name: "src", widget: "image" }
+                  - { label: "Alt text", name: "alt", widget: "string", required: false }
+                  - { label: "Title", name: "title", widget: "string", required: false }
+                  - { label: "Description", name: "description", widget: "string", required: false }
+
+          # -------------------------------------------
+          # Contact Information
+          # -------------------------------------------
+
+          - label: "Contact Information"
+            name: "contactInfo"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text", required: false }
+              - { label: "Wrapper Background", name: "bgWrapper", widget: "string", required: false }
+              - { label: "Card Background", name: "bgCard", widget: "string", required: false }
+              - { label: "Max width size", name: "defaultMaxWidth", widget: "string", required: false, hint: "max-w-3xl" }
+
+              # 🔹 Dynamic items (contact, sections, GDPR blocks, ...)
+              - label: "Content Items"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Type", name: "type", widget: "select", options: ["info", "text", "sectionTitle"], default: "info" }
+                  - { label: "Icon (optional)", name: "icon", widget: "string", required: false, hint: "fa-solid fa-globe, fa-envelope, atď." }
+                  - { label: "Label", name: "label", widget: "string", required: false }
+                  - { label: "Text", name: "text", widget: "text", required: false }
+                  - { label: "Link", name: "link", widget: "string", required: false }
+                  - { label: "Show", name: "show", widget: "boolean", default: true }
+
+              - label: "Show map"
+                name: "showMap"
+                widget: "boolean"
+                default: true
+
+              - label: "Map layer (OpenStreetMap)"
+                name: "mapLayer"
+                widget: "select"
+                options:
+                  - { label: "Standard (mapnik)", value: "mapnik" }
+                  - { label: "Cycle map", value: "cyclemap" }
+                  - { label: "Transport map", value: "transportmap" }
+                  - { label: "Humanitarian", value: "hot" }
+                  - { label: "Public Transport (OPNVKarte)", value: "opnvkarte" }
+                  - { label: "French style", value: "osmfr" }
+                default: "mapnik"
+                hint: "Select a map layer for the embedded OpenStreetMap map."
+
+              - label: "Location"
+                name: "location"
+                widget: "map"
+                required: false
+
+  # -------------------------------------------------------
+  # 📰 Articles
+  # -------------------------------------------------------
+  - name: "articles"
+    label: "Articles"
+    folder: "src/content/articles"
+    media_folder: "../../../public/images/articles"
+    public_folder: "/images/articles"
+    create: true
+    format: "frontmatter"
+    extension: "mdx"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Date", name: "date", widget: "datetime", required: true, default: '{{now}}', format: "YYYY-MM-DD", time_format: false }
+      - { label: "Author", name: "author", widget: "string", required: false, hint: "Set default author in Settings -> Article settings" }
+      - { label: "Cover Image", name: "coverImage", widget: "image" }
+      - { label: "Excerpt", name: "excerpt", widget: "text", required: true }
+      - { label: "Body (MDX)", name: "body", widget: "markdown" }
+
+  # -------------------------------------------------------
+  # ⚙️ Site Configuration
+  # -------------------------------------------------------
+  - name: "site-config"
+    label: "Settings"
+    files:
+      - file: "src/config/site.json"
+        label: "Site Settings"
+        name: "site"
+        fields:
+          - { label: "Site name", name: "siteName", widget: "string", required: true, hint: "The name of your website or company. This information is displayed in the browser title." }
+          - { label: "Description", name: "description", widget: "string", hint: "A description of your page. This information is stored in the description tag." }
+          - label: "Logo"
+            name: "logo"
+            widget: "object"
+            fields:
+            - { label: "Name", name: "name", widget: "string", hint: "The logo is an svg icon stored in /icons directory. Use just the filename without the extension." }
+            - { label: "Text", name: "text", widget: "string", required: false, hint: "Fill in if you want a name behind the logo, otherwise leave it blank." }
+          - { label: "Locale", name: "locale", widget: "string", hint: "TTo display the correct localization date in articles. (en-EN, or sk-SK etc.)" }
+          - label: "Layout"
+            name: "layout"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "Default page width"
+                name: "defaultMaxWidth"
+                widget: "select"
+                options:
+                  - { label: "Max width XL", value: "max-w-xl" }
+                  - { label: "Max width 2XL", value: "max-w-2xl" }
+                  - { label: "Max width 3XL", value: "max-w-3xl" }
+                  - { label: "Max width 4XL", value: "max-w-4xl" }
+                  - { label: "Max width 5XL", value: "max-w-5xl" }
+                  - { label: "Max width 6XL", value: "max-w-6xl" }
+                  - { label: "Max width 7XL", value: "max-w-7xl" }
+                default: "max-w-5xl"
+                hint: "Page width. This value affects the width of all page components."
+
+          # Design section (e.g. colors, typography, etc. will be added here)
+          - label: "Design"
+            name: "design"
+            widget: "object"
+            collapsed: false
+            fields:
+              - label: "Buttons"
+                name: "buttons"
+                widget: "object"
+                collapsed: false
+                fields:
+                  - { label: "Base", name: "base", widget: "string", required: false, hint: "Base styles shared across all buttons." }
+                  - { label: "Primary", name: "primary", widget: "string", required: false, hint: "Primary CTA button styles." }
+                  - { label: "Secondary", name: "secondary", widget: "string", required: false, hint: "Secondary button styles." }
+                  - { label: "Accent", name: "accent", widget: "string", required: false, hint: "Accent or highlight button styles." }
+                  - { label: "Ghost", name: "ghost", widget: "string", required: false, hint: "Transparent button style for dark backgrounds." }
+                  - { label: "Danger", name: "danger", widget: "string", required: false, hint: "Destructive or warning action button styles." }
+
+      # -------------------------------------------------------
+      # ⚙️ Navbar Settings
+      # -------------------------------------------------------
+      - file: "src/config/navbar.json"
+        label: "Navbar Settings"
+        name: "navbar"
+        fields:
+          - label: "Navbar Type"
+            name: "navbarType"
+            widget: "select"
+            hint: "Choose your navigation type."
+            options:
+              - { label: "Simple Navbar", value: "simple" }
+              - { label: "Logo Navbar", value: "logo" }
+            default: "simple"
+
+          - label: "Navbar Sticky"
+            name: "sticky"
+            widget: "boolean"
+            #default: false
+            hint: "When it is turned on, navbar stays on top when scrolling."
+
+          # -------------------------------
+          # SIMPLE NAVBAR DESIGN SETTINGS
+          # -------------------------------
+          - label: "Simple Navbar Design"
+            name: "simple"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Wrapper", name: "wrapper", widget: "string", required: false, hint: "bg-gray-800" }
+              - { label: "Container", name: "container", widget: "string", required: false, hint: "Here you can, for example, set the padding around the navbar container." }
+              - { label: "Text", name: "text", widget: "string", required: false, hint: "text-white/80" }
+              - { label: "Text hover", name: "textHover", widget: "string", required: false, hint: "hover:text-white" }
+              - { label: "Icon", name: "icon", widget: "string", required: false, hint: "w-5 h-5 text-gray-400/50 hover:text-gray-400/80 animate-pulse" }
+              - { label: "Padding", name: "padding", widget: "string", required: false, hint: "px-4 py-5" }
+              - label: "Logo"
+                name: "logo"
+                widget: "object"
+                fields:
+                  - { label: "Size", name: "size", widget: "string", required: false, hint: "h-24 w-auto sm:h-6 sm:w-6 hover:animate-pulse" }
+                  - { label: "Text", name: "text", widget: "string", required: false, hint: "text-white/80" }
+                  
+          # -------------------------------
+          # LOGO NAVBAR DESIGN SETTINGS
+          # -------------------------------
+          - label: "Logo Navbar Design"
+            name: "logo"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Wrapper", name: "wrapper", widget: "string", required: false, hint: "bg-orange-600/90" }
+              - { label: "Logo Wrapper", name: "logoWrapper", widget: "string", required: false, hint: "py-10 flex justify-center items-center shadow-md" }
+              - { label: "Links Wrapper", name: "linksWrapper", widget: "string", required: false, hint: "bg-green-900 py-4" }
+              - { label: "Logo Container Width", name: "logoContainerWidth", widget: "string", required: false, hint: "max-w-5xl mx-auto" }
+              - label: "Logo"
+                name: "logo"
+                widget: "object"
+                fields:
+                  - { label: "Size", name: "size", widget: "string", required: false, hint: "h-16 w-auto hover:animate-pulse" }
+                  - { label: "Text", name: "text", widget: "string", required: false, hint: "text-amber-400" }
+              - { label: "Text", name: "text", widget: "string", required: false, hint: "text-white/80 font-medium uppercase" }
+              - { label: "Text hover", name: "textHover", widget: "string", required: false, hint: "hover:text-orange-300" }
+              - { label: "Icon", name: "icon", widget: "string", required: false, hint: "text-green-400/50 hover:text-green-400/80 animate-pulse" }
+              - { label: "Padding", name: "padding", widget: "string", required: false, hint: "px-4" }
+
+          # -------------------------------
+          # NAVIGATION LINKS
+          # -------------------------------
+          - label: "Navbar links"
+            name: "nav"
+            widget: "list"
+            fields:
+              - { label: "Label", name: "label", widget: "string", required: true, hint: "Page name. The value is visible in the navbar." }
+              - { label: "Href", name: "href", widget: "string", required: true, hint: "Page link. The value in the navbar points to the targeted page." }
+              - { label: "Icon", name: "icon", widget: "string", required: false, hint: "The icon is a csv file stored in the /icons directory. Use the filename without the extension."}
+
+      # -------------------------------------------------------
+      # ⚙️ Footer Settings
+      # -------------------------------------------------------
+      - file: "src/config/footer.json"
+        label: "Footer Settings"
+        name: "footer"
+        fields:
+          - { label: "Footer text", name: "footerText", widget: "string", default: "All rights reserved." }
+          - label: "Background color"
+            name: "bgColor"
+            widget: "string"
+            required: false
+            hint: "Tailwind background class, e.g. bg-gray-100 etc."
+          - label: "Text color"
+            name: "textColor"
+            widget: "string"
+            required: false
+            hint: "Tailwind class, e.g. text-gray-600"
+          - label: "Text hover color"
+            name: "textHoverColor"
+            widget: "string"
+            required: false
+            hint: "Tailwind class, e.g. hover:text-gray-800"
+          - label: "Text size"
+            name: "textSize"
+            widget: "string"
+            required: false
+            hint: "Tailwind class, e.g. text-sm"
+          - label: "Icon color"
+            name: "iconColor"
+            widget: "string"
+            required: false
+            hint: "Tailwind class, e.g. text-gray-500"
+          - label: "Icon size"
+            name: "iconSize"
+            widget: "string"
+            required: false
+            hint: "Tailwind class, e.g. w-5 h-5"
+          - label: "Logo size"
+            name: "logoSize"
+            widget: "string"
+            required: false
+            hint: "Tailwind class, e.g. w-8 h-8"
+          - label: "Socials"
+            name: "socials"
+            widget: "list"
+            summary: "{{fields.label}} → {{fields.href}}"
+            fields:
+              - { label: "Label", name: "label", widget: "string", required: false }
+              - { label: "Icon", name: "icon", widget: "string", required: false, hint: "SVG icon filename without ext. Stored in /icons (ex. social-fb, social-ig, social-x)" }
+              - { label: "URL", name: "href", widget: "string", required: false }
+
+      # -------------------------------------------------------
+      # ⚙️ Articles Settings
+      # -------------------------------------------------------
+      - name: "articles"
+        label: "Articles Settings"
+        file: "src/config/articles.json"
+        description: "Global article settings"
+        fields:
+          - { name: "defaultReadMoreText", label: "Default link text (Read more)", widget: "string", default: "Read more", required: false }
+          - { name: "defaultAuthor", label: "Default Author", widget: "string", required: false }
+          - { name: "itemsPerPage", label: "Number of articles per page", widget: "number", default: 64, min: 1, max: 200, required: false }
+          - { name: "maxWidth", label: "Maximum article width", widget: "string", default: "max-w-3xl", required: false, hint: "I recommend a maximum width of max-w-3xl to 4xl for article readability." }
