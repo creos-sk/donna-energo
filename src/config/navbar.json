@@ -22,7 +22,7 @@
     }
   ],
   "logo": {
-    "wrapper": "",
+    "wrapper": "bg-orange-600/90",
     "linksWrapper": "",
     "icon": ""
   },
@@ -32,6 +32,6 @@
       "text": ""
     }
   },
-  "sticky": true,
-  "navbarType": "simple"
+  "sticky": false,
+  "navbarType": "logo"
 }
