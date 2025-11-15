@@ -3,8 +3,8 @@
     "defaultMaxWidth": "max-w-6xl"
   },
   "logo": {
-    "name": "logo",
-    "text": "COMPANY.name"
+    "name": "DONNA-logo-white",
+    "text": ""
   },
   "contentWidth": "max-w-3xl mx-auto px-4",
   "homepage": {
@@ -17,12 +17,12 @@
     "latestArticlesCount": 3,
     "latestGalleryCount": 4
   },
-  "siteName": "Site name",
+  "siteName": "Donna s.r.o.",
   "gallery": {
     "itemsPerPage": 64
   },
-  "locale": "en-EN",
-  "description": "Welcome to [Site name]. We provide high-quality [Service/Product type] and dedicated support to help you achieve your goals. Explore our collection and learn more about our mission and values.",
+  "locale": "sk-SK",
+  "description": "donnaenergo.sk – Tepelné čerpadlá a fotovoltaika",
   "articles": {
     "defaultReadMoreText": "Read more",
     "defaultAuthor": "Pavol Petras, CREOS",
