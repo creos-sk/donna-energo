@@ -1,24 +1,8 @@
 {
-  "footerText": "Built with passion and commitment to quality. All Rights Reserved.",
-  "socials": [
-    {
-      "icon": "social-fb",
-      "href": "#",
-      "label": "fb"
-    },
-    {
-      "icon": "social-ig",
-      "href": "#",
-      "label": "ig"
-    },
-    {
-      "icon": "social-x",
-      "href": "#",
-      "label": "x"
-    }
-  ],
+  "footerText": "Obchodná 182 078 01 Sečovce, 0917 533 980 - Tepelné čerpadlá ZEM - VODA (c) 2016-2025 Všetky práva vyhradené.",
+  "socials": [],
   "logoSize": "",
-  "bgColor": "",
+  "bgColor": "bg-green-700",
   "textColor": "",
   "iconColor": "",
   "iconSize": ""
