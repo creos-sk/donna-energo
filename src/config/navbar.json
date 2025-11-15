@@ -23,7 +23,7 @@
   ],
   "logo": {
     "wrapper": "bg-orange-600/90",
-    "linksWrapper": "",
+    "linksWrapper": "bg-green-900 py-4",
     "icon": ""
   },
   "simple": {
