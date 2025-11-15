@@ -1,0 +1,20 @@
+# netlify.toml
+
+[build]
+  # Build command for Astro
+  command = "npm run build"
+  # Publish directory for the static output
+  publish = "dist"
+
+# --- Decap CMS and Netlify Identity configuration ---
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "no-cache"
+    
+[[redirects]]
+  # Necessary for Decap CMS admin route to work
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
